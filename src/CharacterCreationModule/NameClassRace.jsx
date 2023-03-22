@@ -146,13 +146,13 @@ export const NameClassRace = (props) => {
               {/* {characterRace !== 'Other' ?  */}
               <FormControl sx={{ gridColumn: "span 2" }}>
                 <InputLabel id="race-label-helper">
-                  {characterClass === "" ? "Race" : characterRace}
+                  {characterRace === "" ? "Race" : characterRace}
                 </InputLabel>
                 <Select
                   labelId="race-select-label"
                   id="race-select"
                   value={values.race}
-                  // onChange={handleChange}
+                  onChange={handleRaceChange}
                   input={<OutlinedInput label="Race" />}
                 >
                   {raceOptions.map((type, index) => (
