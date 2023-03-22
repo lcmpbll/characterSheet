@@ -2,8 +2,7 @@ import "./styles.css";
 import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import { Box, Typography } from "@mui/material";
-import NewCharacterForm from "./NewCharacter";
-import AddRace from "./AddRace";
+import { NewCharacterForm } from "./CharacterCreationModule/NewCharacter";
 import Menu from "./Menu";
 import Home from "./Home";
 
@@ -33,11 +32,7 @@ export default function App() {
             />
           }
         />
-        <Route
-          exact
-          path="/addRaceDetails"
-          element={<AddRace character={newCharacter} />}
-        />
+        
       </Routes>
     </div>
   );
