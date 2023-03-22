@@ -16,7 +16,7 @@ const Stepper = (props) => {
       steps={3}
       position="static"
       activeStep={currentStep}
-      sx={{ maxWidth: 400, flexGrow: 1}}
+      sx={{ maxWidth: 1500, flexGrow: 3}}
       nextButton={
         <Button size="small" onClick={nextStep} disabled={ currentStep === 2}>
           Next
