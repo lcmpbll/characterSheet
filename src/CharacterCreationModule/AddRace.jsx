@@ -3,11 +3,13 @@ import { Box, Typography, TextField, Button } from "@mui/material";
 import React, { useContext } from 'react';
 import { FormContext } from './NewCharacter';
 import * as yup from 'yup';
-import { Formik } from "formik";
+import { Formik, Form } from "formik";
 
 
 
  // Add ability choice options
+ // Add proficiencies
+ // add clickable for more information to traits, and languages
 
 const getRaceInfo = (data, race) => {
   return Object.values(data.default).filter((details) => details.name === race);
@@ -61,13 +63,11 @@ const combineAbilityBonuses = (abilityName, bonusAmount) => {
 
 const AddRaceDetails = () => {
   const { nextStep, prevStep, currentStep, formData, setFormData, values } = useContext(FormContext);
- 
-  console.log(getRaceInfo(data, "Human")[0]);
   const raceDetails = getRaceInfo(data, "Dwarf")[0];
   const characterAbilityBonuses = getAbilityBonuses(raceDetails.ability_bonuses);
   const characterBonusAmounts = getIncreaseAmount(raceDetails.ability_bonuses);
-  let averageRaceAge = getAvgAge(raceDetails.age);
-  let abilityBonuses = combineAbilityBonuses(characterAbilityBonuses, characterBonusAmounts);
+  const averageRaceAge = getAvgAge(raceDetails.age);
+  const abilityBonuses = combineAbilityBonuses(characterAbilityBonuses, characterBonusAmounts);
   const characterSchema = yup.object().shape({
     size: yup.string().required(),
     speed: yup.number().required(),
@@ -77,7 +77,7 @@ const AddRaceDetails = () => {
   const handleFormSubmit= (values) => {
     const data = { ...formData, ...values};
     setFormData(data);
-    console.log(formData);
+    
     nextStep();
   }
   return (
@@ -103,7 +103,7 @@ const AddRaceDetails = () => {
           handleChange,
           handleSubmit
         }) => (
-          <form className="raceDetailsForm">
+          <Form className="raceDetailsForm">
             <h1>{raceDetails.name}</h1>
             <TextField
               fullWidth
@@ -150,7 +150,7 @@ const AddRaceDetails = () => {
             <Button type="submit" variant="contained">
                 Continue
             </Button>  
-          </form>
+          </Form>
         )}
       </Formik>
       
