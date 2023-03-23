@@ -8,8 +8,9 @@ import { Formik } from "formik";
 const getRaceInfo = (data, race) => {
   return Object.values(data.default).filter((details) => details.name === race);
 };
-const AddRaceDetails = (props) => {
+const AddRaceDetails = () => {
   const { nextStep, prevStep, currentStep, formData, setFormData, values } = useContext(FormContext);
+  console.log(formData, 'form data');
   console.log(getRaceInfo(data, "Dragonborn")[0]);
   const raceDetails = getRaceInfo(data, "Dragonborn")[0];
   const abilityBonuses = raceDetails.ability_bonuses;
@@ -28,8 +29,8 @@ const AddRaceDetails = (props) => {
     <Box>
       <Formik
         initialValues={{
-          size: '',
-          speed: '',
+          size: raceDetails.size,
+          speed: raceDetails.speed,
         }}
           onSubmit={handleFormSubmit}
           validationSchema={characterSchema}
@@ -52,7 +53,7 @@ const AddRaceDetails = (props) => {
               onBlur={handleBlur}
               // onChange={handleFormData("firstName")}
               placeholder={raceDetails.speed}
-              // value={values.firstName}
+              value={values.speed}
               name="speed"
               errors={!!touched.speed && !!errors.speed}
               helperText={touched.speed && errors.speed}
@@ -66,7 +67,7 @@ const AddRaceDetails = (props) => {
               onBlur={handleBlur}
               // onChange={handleFormData("firstName")}
               placeholder={raceDetails.size}
-              // value={values.firstName}
+              value={values.size}
               name="speed"
               errors={!!touched.size && !!errors.size}
               helperText={touched.size && errors.size}

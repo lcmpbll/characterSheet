@@ -27,15 +27,19 @@ export const NewCharacterForm = (props) => {
   const { handleAddingCharacterToList } = props;
   const navigate = useNavigate();
   
-  console.log(props);
+  const [formData, setFormData] = useState({});
+  console.log(formData);
   //Control back and fourth for character creation steps
   const [ currentStep, setCurrentStep] = useState(1);
   const nextStep = () => {
+    
     setCurrentStep( currentStep + 1);
   };
   const prevStep = () => {
     setCurrentStep( currentStep - 1);
   };
+  
+  // handleAddingCharacterToList(formData);
   
   //handling form input by taking the onchange value ad updating previous form data state
   const handleInputData = input => e => {
@@ -59,22 +63,12 @@ export const NewCharacterForm = (props) => {
   //     class: characterClass,
   //     race: characterRace
   //   };
-  const [formData, setFormData] = useState({
-    id: "",
-    ownerId: "",
-    firstName: "",
-    lastName: "",
-    gender: "",
-    class: "",
-    race: "",
-    level: 1,
-    
-  });
+
     // console.log(newCharacter);
     // resetForm({ values: "" });
     // handleAddingCharacterToList(formData);
   return (
-    <FormContext.Provider value={{ currentStep }}>
+    <FormContext.Provider value={{ currentStep, nextStep, prevStep, setFormData, formData }}>
       <Box>
         <Stepper prevStep={prevStep} nextStep={nextStep} />
         <Step/>

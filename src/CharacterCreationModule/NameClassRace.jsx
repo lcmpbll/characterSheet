@@ -23,6 +23,7 @@ import * as races from "../data/races";
 
 export const getOptions = (data) => {
   let array = [];
+  
   Object.values(data.default).forEach((val) => array.push(val.name));
   array.push("Other");
   return array;
@@ -66,6 +67,7 @@ export const NameClassRace = (props) => {
     //handleAddingCharacterToList(newCharacter);
     const data = {...formData, ...values };
     setFormData(data); 
+    console.log(data);
     nextStep();
   };
   const handleRaceChange = (event) => {
@@ -80,19 +82,15 @@ export const NameClassRace = (props) => {
     } = event;
     setCharacterClass(value);
   };
-  // const handleRaceChangeOther = (event) => {
-  //   console.log(event);
-  //   console.log(value);
-  //   const {
-  //     target: {value}
-  //   } = event;
-  //   raceOptions.push(value);
-  //   setCustomRace(value);
-  // }
 
   return (
     <Box>
       <Formik
+        // onSubmit={(values) => {
+        //   const data = {...formData, ...values};
+        //   setFormData(data);
+        //   nextStep();
+        // }}
         onSubmit={handleFormSubmit}
         initialValues={initialValues}
         validationSchema={characterSchema}
@@ -103,9 +101,9 @@ export const NameClassRace = (props) => {
           touched,
           handleBlur,
           handleChange,
-          handleSubmit
+          onSubmit
         }) => (
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={onSubmit}>
             <Box
               display="grid"
               gap="30px"
@@ -120,9 +118,9 @@ export const NameClassRace = (props) => {
                 type="text"
                 label="First Name"
                 onBlur={handleBlur}
-                // onChange={handleFormData("firstName")}
+                onChange={handleChange}
                 // placeholder={values.firsName}
-                // value={values.firstName}
+                value={values.firstName}
                 name="firstName"
                 errors={!!touched.firstName && !!errors.firstName}
                 helperText={touched.firstName && errors.firstName}
@@ -134,8 +132,8 @@ export const NameClassRace = (props) => {
                 type="text"
                 label="Last Name"
                 onBlur={handleBlur}
-                // onChange={handleChange}
-                // value={values.lastName}
+                onChange={handleChange}
+                value={values.lastName}
                 name="lastName"
                 errors={!!touched.lastName && !!errors.lastName}
                 helperText={touched.lastName && errors.lasttName}
