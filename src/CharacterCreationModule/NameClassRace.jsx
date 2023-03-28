@@ -12,7 +12,7 @@ import { v4 as uuid } from "uuid";
 import React, { useState, useContext } from "react";
 import { FormContext } from './NewCharacter';
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { Formik, ErrorMessage } from "formik";
+import { Formik, ErrorMessage, Form } from "formik";
 import * as yup from "yup";
 import * as classes from "../data/classes";
 import * as races from "../data/races";
@@ -30,80 +30,38 @@ export const getOptions = (data) => {
 };
 
 export const NameClassRace = (props) => {
+
   // Form Setup
   const raceOptions = getOptions(races);
   const classOptions = getOptions(classes);
   const isNonMobile = useMediaQuery("min-width: 600px");
-  const initialValues = {
-    firstName: "",
-    lastName: "",
-    class: "",
-    race: "",
-  };
-  const characterSchema = yup.object().shape({
-    firstName: yup.string().required("required"),
-    lastName: yup.string().nullable().notRequired(),
-    class: yup.string().required("required"),
-    race: yup.string().required("required"),
-    //gender?
-    level: yup.number().required("required")
-  });
-  const renderError = (message) => {
-    <p className="errorMessage">{message}</p>
-  };
+
+
   
-  const { currentStep, nextStep, formData, setFormData } = useContext(FormContext);
+  // const { currentStep, nextStep, formData, setFormData } = useContext(FormContext);
   
-  const [characterRace, setCharacterRace] = useState("");
-  const [characterClass, setCharacterClass] = useState("");
  
 
 
-  const handleFormSubmit = (values) => {
-    // getFinalSelection();
-      // handleFormData(values);
-    // console.log(newCharacter);
-    // resetForm({ values: "" });
-    //handleAddingCharacterToList(newCharacter);
-    const data = {...formData, ...values };
-    setFormData(data); 
-    console.log(data);
-    nextStep();
-  };
-  const handleRaceChange = (event) => {
-    const {
-      target: { value }
-    } = event;
-    setCharacterRace(value);
-  };
-  const handleClassChange = (event) => {
-    const {
-      target: { value }
-    } = event;
-    setCharacterClass(value);
-  };
+
+  // const handleFormSubmit = (values) => {
+  //   const data = { ...formData, ...values};
+  //   setFormData(data);
+  //   console.log(formData, values);
+  //   nextStep();
+  // }
+
 
   return (
     <Box>
       <Formik
-        // onSubmit={(values) => {
-        //   const data = {...formData, ...values};
-        //   setFormData(data);
-        //   nextStep();
-        // }}
-        onSubmit={handleFormSubmit}
-        initialValues={initialValues}
-        validationSchema={characterSchema}
+        
+        // onSubmit={handleFormSubmit()}
+        // initialValues={initialValues}
+        // // validationSchema={characterSchema}
       >
-        {({
-          values,
-          errors,
-          touched,
-          handleBlur,
-          handleChange,
-          onSubmit
-        }) => (
-          <form onSubmit={onSubmit}>
+       {({values, errors, handleChange, handleBlur, touched, onSubmit }) => 
+          <Form>
             <Box
               display="grid"
               gap="30px"
@@ -119,7 +77,6 @@ export const NameClassRace = (props) => {
                 label="First Name"
                 onBlur={handleBlur}
                 onChange={handleChange}
-                // placeholder={values.firsName}
                 value={values.firstName}
                 name="firstName"
                 errors={!!touched.firstName && !!errors.firstName}
@@ -157,7 +114,7 @@ export const NameClassRace = (props) => {
                     <MenuItem
                       key={index}
                       value={type}
-                      // style={getStyles(name, personName, theme)}
+                      
                     >
                       {type}
                     </MenuItem>
@@ -205,7 +162,7 @@ export const NameClassRace = (props) => {
                     <MenuItem
                       key={index}
                       value={type}
-                      // style={getStyles(name, personName, theme)}
+                      
                     >
                       {type}
                     </MenuItem>
@@ -214,12 +171,12 @@ export const NameClassRace = (props) => {
               </FormControl>
             </Box>
             <Box display="flex" justifyContent="end" mt="20px">
-              <Button type="submit" variant="contained">
+            <Button type="submit" variant="contained">
                 Continue
-              </Button>
+            </Button>  
             </Box>
-          </form>
-        )}
+          </Form>
+        }
       </Formik>
     </Box>
   );

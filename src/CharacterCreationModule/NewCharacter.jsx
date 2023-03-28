@@ -17,7 +17,7 @@ import * as yup from "yup";
 import * as classes from "../data/classes";
 import * as races from "../data/races";
 import { NameClassRace } from "./NameClassRace";
-import { AddRaceDetails } from "./AddRace";
+// import { AddRaceDetails } from "./AddRace";
 import Stepper from  './Stepper';
 import { Step } from './Steps';
 
@@ -27,8 +27,13 @@ export const NewCharacterForm = (props) => {
   const { handleAddingCharacterToList } = props;
   const navigate = useNavigate();
   
-  const [formData, setFormData] = useState({});
-  console.log(formData);
+  const [formData, setFormData] = useState({
+    characterId: '',
+    firstName: '',
+    lastName: '',
+    class: '',
+    race: ''});
+ 
   //Control back and fourth for character creation steps
   const [ currentStep, setCurrentStep] = useState(1);
   const nextStep = () => {

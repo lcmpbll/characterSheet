@@ -2,7 +2,8 @@ import "./styles.css";
 import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import { Box, Typography } from "@mui/material";
-import { NewCharacterForm } from "./CharacterCreationModule/NewCharacter";
+// import { NewCharacterForm } from "./CharacterCreationModule/NewCharacter";
+import CreateNewCharacterPage from './CharacterCreation/CreateNewCharacter';
 import Menu from "./Menu";
 import Home from "./Home";
 
@@ -13,6 +14,14 @@ export default function App() {
     setCharacterList(newCharacterList);
     console.log(characterList, "characterList");
   };
+  // const updateCharacter = (editedCharacter) => {
+  //   const newCharacterList = characterList.map((character) => {
+  //     if(character.characterId === editedCharacter.characterId) {
+        
+  //     }
+  //   }
+    
+  // }
   const newCharacter = characterList[0];
   return (
     <div className="App">
@@ -26,10 +35,11 @@ export default function App() {
           exact
           path="/new"
           element={
-            <NewCharacterForm
-              handleAddingCharacterToList={handleAddingCharacterToList}
-              characterList={characterList}
-            />
+            // <NewCharacterForm
+            //   handleAddingCharacterToList={handleAddingCharacterToList}
+            //   characterList={characterList}
+            // />
+            <CreateNewCharacterPage handleAddingCharacterToList={handleAddingCharacterToList} characterList={characterList} />
           }
         />
         

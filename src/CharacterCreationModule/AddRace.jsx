@@ -7,11 +7,12 @@ import { Formik, Form } from "formik";
 
 
 
+
  // Add ability choice options
  // Add proficiencies
  // add clickable for more information to traits, and languages
 
-const getRaceInfo = (data, race) => {
+export const getRaceInfo = (data, race) => {
   return Object.values(data.default).filter((details) => details.name === race);
 };
 
@@ -30,7 +31,7 @@ const getIncreaseAmount = (data) => {
 }
 
 
-const getAvgAge = (ageDescription) => {
+export const getAvgAge = (ageDescription) => {
   
   // let regExp = /([Aa]dult)/g;
   let numRegExp = /(\d+)/g;
@@ -61,8 +62,10 @@ const combineAbilityBonuses = (abilityName, bonusAmount) => {
 
 
 
-const AddRaceDetails = () => {
-  const { nextStep, prevStep, currentStep, formData, setFormData, values } = useContext(FormContext);
+export const AddRaceDetails = () => {
+  // const { nextStep, prevStep, currentStep, formData, setFormData, values } = useContext(FormContext);
+  console.log(formData, 'addRace');
+  //formdata.race
   const raceDetails = getRaceInfo(data, "Dwarf")[0];
   const characterAbilityBonuses = getAbilityBonuses(raceDetails.ability_bonuses);
   const characterBonusAmounts = getIncreaseAmount(raceDetails.ability_bonuses);
@@ -77,15 +80,15 @@ const AddRaceDetails = () => {
   const handleFormSubmit= (values) => {
     const data = { ...formData, ...values};
     setFormData(data);
-    
+    console.log(formData);
     nextStep();
   }
   return (
     <Box>
       <Formik
         initialValues={{
-          size: raceDetails.size,
           speed: raceDetails.speed,
+          size: raceDetails.size,
           abilityBonusArray: characterAbilityBonuses, 
           abilityBonusAmount: characterBonusAmounts,
           abilityBonus: abilityBonuses,
@@ -93,7 +96,7 @@ const AddRaceDetails = () => {
           
         }}
           onSubmit={handleFormSubmit}
-          validationSchema={characterSchema}
+          // validationSchema={characterSchema}
         >
         {({ 
           values,
@@ -147,9 +150,9 @@ const AddRaceDetails = () => {
               helperText={touched.speed && errors.age}
               sx={{ gridColumn: "span 1" }}
             />
-            <Button type="submit" variant="contained">
+            {/* <Button type="submit" variant="contained">
                 Continue
-            </Button>  
+            </Button>   */}
           </Form>
         )}
       </Formik>
@@ -225,4 +228,4 @@ const AddRaceDetails = () => {
   );
 };
 
-export default AddRaceDetails;
+
