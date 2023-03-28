@@ -12,10 +12,12 @@ import {
 
 export function SelectField(props) {
   const { label, data, ...rest } = props;
-  const [field] = useField(props);
+  const [field, meta] = useField(props);
   const { value: selectedValue } = field;
+ 
   const [touched, error] = at(meta, 'touched', 'error');
   const isError = touched && error && true;
+  
   
   function _renderHelperText() {
     if (isError) {
