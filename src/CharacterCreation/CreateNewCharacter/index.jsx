@@ -1,7 +1,6 @@
 import React, { useState, createContext } from 'react';
 import { MobileStepper, Step, StepLabel, Button, Typography, Box } from '@mui/material';
 import { Formik, Form } from 'formik';
-
 import { NameRaceClass } from '../Forms/NameRaceClass';
 import { AddRaceDetails } from '../Forms/AddRace.jsx';
 
@@ -29,6 +28,9 @@ function _renderStepContent(step) {
   }
 }
 
+
+
+
 export const FormContext = createContext();
 
 const CreateNewCharacterPage  = (props) =>  {
@@ -49,17 +51,17 @@ const CreateNewCharacterPage  = (props) =>  {
     return Object.values(values);
   }
   
-  const updateCurrentCharacter = async(values) => {
-    const keys = getValuesNames(values);
-    const entries = getValuesValues(values);
-    for(let i = 0; i < keys.length; i ++){
-        setCurrentCharacter(prevState  => ({
-        ...prevState,
-        [keys[i]]: entries[i]
-      }))
-    }
-    return currentCharacter;
-  }
+  // const updateCurrentCharacter = async(values) => {
+  //   const keys = getValuesNames(values);
+  //   const entries = getValuesValues(values);
+  //   for(let i = 0; i < keys.length; i ++){
+  //       setCurrentCharacter(prevState  => ({
+  //       ...prevState,
+  //       [keys[i]]: entries[i]
+  //     }))
+  //   }
+  //   return currentCharacter;
+  // }
   
   async function _submitCharacter(values, actions){
     setCurrentCharacter(values)
@@ -81,6 +83,7 @@ const CreateNewCharacterPage  = (props) =>  {
       actions.setSubitting(false);
     }
   }
+
   
   function _handleBack() {
     setActiveStep(activeStep -1);

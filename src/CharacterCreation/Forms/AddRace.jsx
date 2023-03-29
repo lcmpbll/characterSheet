@@ -91,9 +91,9 @@ export const AddRaceDetails = (props) => {
     <Box>
       <Box>
         <Typography>Add Race Details</Typography>
-        <InputField name={speed.name} label={speed.name} fullWidth/>
-        <InputField name={size.name} label={size.name} fullWidth/> 
-        <InputField name={age.name} label={age.name} fullWidth/>
+        <InputField name={speed.name} label={speed.label} fullWidth/>
+        <InputField name={size.name} label={size.label} fullWidth/> 
+        <InputField name={age.name} label={age.label} fullWidth/>
       </Box>
       
       {/* <Box display="grid" justifyContent="start" m='20px'>
