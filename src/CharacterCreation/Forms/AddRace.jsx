@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { FormContext } from '../CreateNewCharacter';
 import * as data from "../../data/races.json";
 import { Box, Typography, TextField, Grid } from "@mui/material";
@@ -61,6 +61,9 @@ const combineAbilityBonuses = (abilityName, bonusAmount) => {
 
 
 export const AddRaceDetails = (props) => {
+  const [pageData, setPageData] = useState(null);
+  const [, updateState] = useState();
+  const forceUpdate = React.useCallback(() => updateState({}), []);
   const {
     formField: {
       speed,
@@ -70,34 +73,50 @@ export const AddRaceDetails = (props) => {
     }
   } = props;
   const { currentCharacter } = useContext(FormContext);
-  console.log(currentCharacter);
+  
   //formdata.race
   
   useEffect(() => {
-    
+    setPageData(getDetails(currentCharacter));
+    forceUpdate();
   }, [currentCharacter])
   
-  const getDetails = (currentCharacer) => {
-    const raceDetails = getRaceInfo(data, 'Elf')[0];
-    const characterAbilityBonuses = getAbilityBonuses(raceDetails.ability_bonuses);
-    const characterBonusAmounts = getIncreaseAmount(raceDetails.ability_bonuses);
-    return [raceDetails, characterAbilityBonuses, characterBonusAmounts];
+  const getDetails = (currentCharacter) => {
+    if(typeof currentCharacter !== undefined){
+      const raceDetails = getRaceInfo(data, 'Elf')[0];
+      const characterAbilityBonuses = getAbilityBonuses(raceDetails.ability_bonuses);
+      const characterBonusAmounts = getIncreaseAmount(raceDetails.ability_bonuses);
+      console.log(pageData, 'speed');
+      return [raceDetails, characterAbilityBonuses, characterBonusAmounts];
+      
+    }
   }
+  let raceDetails = null;
+  let characterAbilityBonuses = null;
+  let characterBonusAmounts = null;
+  const abilityBonuses = null;
+  if(pageData !== null){
+     raceDetails = pageData[0];
+     characterAbilityBonuses = pageData[1];
+     characterBonusAmounts = pageData[2];
+     const abilityBonuses = combineAbilityBonuses(characterAbilityBonuses, characterBonusAmounts);
+     
+  }
+  console.log(typeof pageData);
   // const averageRaceAge = getAvgAge(raceDetails.age);
-  // const abilityBonuses = combineAbilityBonuses(characterAbilityBonuses, characterBonusAmounts);
-  
   
   return (
     <Box>
       <Box>
-        <Typography>Add Race Details</Typography>
+
         <InputField name={speed.name} label={speed.label} fullWidth/>
         <InputField name={size.name} label={size.label} fullWidth/> 
         <InputField name={age.name} label={age.label} fullWidth/>
+        {/* <InputField name={abilityBonuses.name} label={abilityBonuses.label} fullWidth/> */}
       </Box>
-      
-      {/* <Box display="grid" justifyContent="start" m='20px'>
-        <Typography>Stats:</Typography>
+      {pageData !== null ?  
+     <Box display="grid" justifyContent="start" m='20px'>
+        <Typography>Common Stats: {raceDetails.name}</Typography>
         <Box p='8px'>
           <Box sx={{
             display: 'grid',
@@ -108,8 +127,8 @@ export const AddRaceDetails = (props) => {
               display: 'grid',
               gridTemplateColumns: '1fr 1fr 2fr 2fr',
               margin: '8px'
-            }}> */}
-              {/* <Box>
+            }}> 
+              <Box>
                 <Typography m='3px'>Speed: {raceDetails.speed} feet</Typography>
                 <Typography m='3px'>Size: {raceDetails.size}</Typography> 
               </Box>
@@ -161,9 +180,11 @@ export const AddRaceDetails = (props) => {
           </Box>
         </Box>
       </Box>
+     : null }  
       <Box>
         <Typography></Typography>
-      </Box> */}
+      </Box> 
+     
     </Box>
   );
 };
