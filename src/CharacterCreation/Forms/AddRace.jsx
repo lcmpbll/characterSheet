@@ -1,9 +1,8 @@
-import * as data from "../data/races";
-import { Box, Typography, TextField, Button } from "@mui/material";
-import React, { useContext } from 'react';
-import { FormContext } from './NewCharacter';
-import * as yup from 'yup';
-import { Formik, Form } from "formik";
+import React, { useContext, useEffect } from 'react';
+import { FormContext } from '../CreateNewCharacter';
+import * as data from "../../data/races.json";
+import { Box, Typography, TextField, Grid } from "@mui/material";
+import InputField from '../../FormFields/InputField';
 
 
 
@@ -11,7 +10,7 @@ import { Formik, Form } from "formik";
  // Add proficiencies
  // add clickable for more information to traits, and languages
 
-const getRaceInfo = (data, race) => {
+export const getRaceInfo = (data, race) => {
   return Object.values(data.default).filter((details) => details.name === race);
 };
 
@@ -30,7 +29,7 @@ const getIncreaseAmount = (data) => {
 }
 
 
-const getAvgAge = (ageDescription) => {
+export const getAvgAge = (ageDescription) => {
   
   // let regExp = /([Aa]dult)/g;
   let numRegExp = /(\d+)/g;
@@ -61,112 +60,56 @@ const combineAbilityBonuses = (abilityName, bonusAmount) => {
 
 
 
-const AddRaceDetails = () => {
-  const { nextStep, prevStep, currentStep, formData, setFormData, values } = useContext(FormContext);
-  const raceDetails = getRaceInfo(data, "Dwarf")[0];
-  const characterAbilityBonuses = getAbilityBonuses(raceDetails.ability_bonuses);
-  const characterBonusAmounts = getIncreaseAmount(raceDetails.ability_bonuses);
-  const averageRaceAge = getAvgAge(raceDetails.age);
-  const abilityBonuses = combineAbilityBonuses(characterAbilityBonuses, characterBonusAmounts);
-  const characterSchema = yup.object().shape({
-    size: yup.string().required(),
-    speed: yup.number().required(),
-    abilityBonus: yup.object().required(),
-    age: yup.number().required(),
-  })
-  const handleFormSubmit= (values) => {
-    const data = { ...formData, ...values};
-    setFormData(data);
+export const AddRaceDetails = (props) => {
+  const {
+    formField: {
+      speed,
+      size,
+      age,
+      
+    }
+  } = props;
+  const { currentCharacter } = useContext(FormContext);
+  console.log(currentCharacter);
+  //formdata.race
+  
+  useEffect(() => {
     
-    nextStep();
+  }, [currentCharacter])
+  
+  const getDetails = (currentCharacer) => {
+    const raceDetails = getRaceInfo(data, 'Elf')[0];
+    const characterAbilityBonuses = getAbilityBonuses(raceDetails.ability_bonuses);
+    const characterBonusAmounts = getIncreaseAmount(raceDetails.ability_bonuses);
+    return [raceDetails, characterAbilityBonuses, characterBonusAmounts];
   }
+  // const averageRaceAge = getAvgAge(raceDetails.age);
+  // const abilityBonuses = combineAbilityBonuses(characterAbilityBonuses, characterBonusAmounts);
+  
+  
   return (
     <Box>
-      <Formik
-        initialValues={{
-          size: raceDetails.size,
-          speed: raceDetails.speed,
-          abilityBonusArray: characterAbilityBonuses, 
-          abilityBonusAmount: characterBonusAmounts,
-          abilityBonus: abilityBonuses,
-          age: getAvgAge(raceDetails.age),
-          
-        }}
-          onSubmit={handleFormSubmit}
-          validationSchema={characterSchema}
-        >
-        {({ 
-          values,
-          errors,
-          touched,
-          handleBlur,
-          handleChange,
-          handleSubmit
-        }) => (
-          <Form className="raceDetailsForm">
-            <h1>{raceDetails.name}</h1>
-            <TextField
-              fullWidth
-              variant="filled"
-              type="text"
-              label="Speed"
-              onBlur={handleBlur}
-              onChange={handleChange}
-              placeholder={raceDetails.speed}
-              value={values.speed}
-              name="speed"
-              errors={!!touched.speed && !!errors.speed}
-              helperText={touched.speed && errors.speed}
-              sx={{ gridColumn: "span 1" }}
-            />
-            <TextField
-              fullWidth
-              variant="filled"
-              type="text"
-              label="Size"
-              onBlur={handleBlur}
-              onChange={handleChange}
-              placeholder={raceDetails.size}
-              value={values.size}
-              name="speed"
-              errors={!!touched.size && !!errors.size}
-              helperText={touched.size && errors.size}
-              sx={{ gridColumn: "span 1" }}
-            /> 
-             <TextField
-              fullWidth
-              variant="filled"
-              type="text"
-              label="Age"
-              onBlur={handleBlur}
-              onChange={handleChange}
-              placeholder={averageRaceAge}
-              value={values.age}
-              name="age"
-              errors={!!touched.age && !!errors.age}
-              helperText={touched.speed && errors.age}
-              sx={{ gridColumn: "span 1" }}
-            />
-            <Button type="submit" variant="contained">
-                Continue
-            </Button>  
-          </Form>
-        )}
-      </Formik>
+      <Box>
+        <Typography>Add Race Details</Typography>
+        <InputField name={speed.name} label={speed.label} fullWidth/>
+        <InputField name={size.name} label={size.label} fullWidth/> 
+        <InputField name={age.name} label={age.label} fullWidth/>
+      </Box>
       
-      <Box display="grid" justifyContent="start" m='20px'>
+      {/* <Box display="grid" justifyContent="start" m='20px'>
         <Typography>Stats:</Typography>
         <Box p='8px'>
           <Box sx={{
             display: 'grid',
             gridTemplateRows: '1fr 1fr 1fr 1fr',
+            justifyContent: 'space-around'
           }}>
             <Box sx={{
               display: 'grid',
               gridTemplateColumns: '1fr 1fr 2fr 2fr',
               margin: '8px'
-            }}>
-              <Box>
+            }}> */}
+              {/* <Box>
                 <Typography m='3px'>Speed: {raceDetails.speed} feet</Typography>
                 <Typography m='3px'>Size: {raceDetails.size}</Typography> 
               </Box>
@@ -220,9 +163,9 @@ const AddRaceDetails = () => {
       </Box>
       <Box>
         <Typography></Typography>
-      </Box>
+      </Box> */}
     </Box>
   );
 };
 
-export default AddRaceDetails;
+
