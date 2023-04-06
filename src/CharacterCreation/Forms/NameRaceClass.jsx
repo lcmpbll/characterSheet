@@ -11,13 +11,14 @@ import {
 } from "@mui/material";
 import { v4 as uuid } from "uuid";
 import React, { useState, useContext } from "react";
-
+import Loading from '../../Components/loading';
 import useMediaQuery from "@mui/material/useMediaQuery";
 import * as classes from "../../data/classes";
 import * as races from "../../data/races.json";
 import { WidthFull } from "@mui/icons-material";
 import InputField from '../../FormFields/InputField';
 import { SelectField } from '../../FormFields/SelectField';
+
 
 export const getOptions = (data) => {
   let array = [];
@@ -27,6 +28,20 @@ export const getOptions = (data) => {
   return array;
 };
 
+export const getRaceOptions = (data) => {
+  let array = [];
+  
+  array.push("Other");
+  // return array;
+  if(data !== null){
+    console.log(data, 'ln 32');
+    data.forEach((val) => array.push(val.name));
+    
+    return array;
+    
+  }
+}
+
 export const NameRaceClass = (props) => {
   const {
     formField: {
@@ -34,21 +49,33 @@ export const NameRaceClass = (props) => {
       lastName,
       race,
       characterClass
-    }
+    },
+    data
   } = props;
   // Form Setup
-  const raceOptions = getOptions(races);
+  const [isLoading, setIsLoading] = useState(true);
+  
+  const raceOptions = getRaceOptions(data);
   const classOptions = getOptions(classes);
   const isNonMobile = useMediaQuery("min-width: 600px");
   
-  
+  setTimeout(() => {
+    if(data !== undefined){
+      setIsLoading(false);
+    }   
+  }, 3000)
+ 
 
   return (
     <Box>
-      <InputField name={firstName.name} label={firstName.name} fullWidth/>
-      <InputField name={lastName.name} label={lastName.name} fullWidth/>
-      <SelectField name={characterClass.name} label={characterClass.name} data={classOptions} fullWidth/>
-      <SelectField name={race.name} label={race.name} data={raceOptions} fullWidth />
+      {isLoading ? <Loading/> : (
+         <Box>
+          <InputField name={firstName.name} label={firstName.name} fullWidth/>
+          <InputField name={lastName.name} label={lastName.name} fullWidth/>
+          <SelectField name={characterClass.name} label={characterClass.name} data={classOptions} fullWidth/>
+          <SelectField name={race.name} label={race.name} data={raceOptions} fullWidth />
+        </Box>
+      )}
     </Box>
   )
 }
