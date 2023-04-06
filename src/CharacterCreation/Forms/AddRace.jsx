@@ -1,14 +1,22 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { FormContext } from '../CreateNewCharacter';
-import * as data from "../../data/races.json";
+// import * as data from "../../data/races.json";
 import { Box, Typography, TextField, Grid } from "@mui/material";
 import InputField from '../../FormFields/InputField';
 
 
+// const userAction = async () => {
+//   const response = await fetch('https://www.dnd5eapi.co/api/races');
+//   const data = await response.json();
+//   console.log(data);
+//   return data;//extract JSON from the http response
+//   // do something with myJson
+// }
 
  // Add ability choice options
  // Add proficiencies
  // add clickable for more information to traits, and languages
+ // add slider for age selection?
 
 export const getRaceInfo = (data, race) => {
   return Object.values(data.default).filter((details) => details.name === race);
@@ -29,23 +37,23 @@ const getIncreaseAmount = (data) => {
 }
 
 
-export const getAvgAge = (ageDescription) => {
+// export const getAvgAge = (ageDescription) => {
   
-  // let regExp = /([Aa]dult)/g;
-  let numRegExp = /(\d+)/g;
-  let array = [];
-  let ageDescriptionArray = array.concat(ageDescription.match(numRegExp));
-  if(ageDescriptionArray.length === 0){
-    return 30;
-  }else if(ageDescriptionArray.length >= 3){
-    return ageDescriptionArray[2];
-  }else if (ageDescriptionArray.length < 3){
-    return ageDescriptionArray[0];
-  }else{
-    return ageDescriptionArray[1];
-  }
+//   // let regExp = /([Aa]dult)/g;
+//   let numRegExp = /(\d+)/g;
+//   let array = [];
+//   let ageDescriptionArray = array.concat(ageDescription.match(numRegExp));
+//   if(ageDescriptionArray.length === 0){
+//     return 30;
+//   }else if(ageDescriptionArray.length >= 3){
+//     return ageDescriptionArray[2];
+//   }else if (ageDescriptionArray.length < 3){
+//     return ageDescriptionArray[0];
+//   }else{
+//     return ageDescriptionArray[1];
+//   }
   
-}
+// }
 
 const combineAbilityBonuses = (abilityName, bonusAmount) => {
   let bonusObject = {};
@@ -61,6 +69,7 @@ const combineAbilityBonuses = (abilityName, bonusAmount) => {
 
 
 export const AddRaceDetails = (props) => {
+  
   const [pageData, setPageData] = useState(null);
   const [, updateState] = useState();
   const forceUpdate = React.useCallback(() => updateState({}), []);
@@ -72,21 +81,43 @@ export const AddRaceDetails = (props) => {
       
     }
   } = props;
-  const { currentCharacter } = useContext(FormContext);
+  const { currentCharacter, setCurrentCharacter } = useContext(FormContext);
   
-  //formdata.race
   
+  
+const userAction = async () => {
+  fetch('https://www.dnd5eapi.co/api/races').then(response => {
+    console.log(response);
+    if(!response.ok) {
+      throw new Error(`${response.status}: ${response.statusText}`);
+    } else {
+      return response.json();
+    }
+  }).then((jsonifiedResponse) => {
+    setPageData(jsonifiedResponse.results);
+    console.log(jsonifiedResponse.results);
+    
+  })
+}
+  // console.log(currentCharacter);
   useEffect(() => {
     setPageData(getDetails(currentCharacter));
-    forceUpdate();
+    
+    console.log(currentCharacter)
   }, [currentCharacter])
   
   const getDetails = (currentCharacter) => {
+    let characterBonusAmounts = null;
+    let characterAbilityBonuses = null;
     if(typeof currentCharacter !== undefined){
-      const raceDetails = getRaceInfo(data, 'Elf')[0];
-      const characterAbilityBonuses = getAbilityBonuses(raceDetails.ability_bonuses);
-      const characterBonusAmounts = getIncreaseAmount(raceDetails.ability_bonuses);
-      console.log(pageData, 'speed');
+      const data = userAction();
+      console.log(data);
+      const raceDetails = getRaceInfo(data, currentCharacter.race)[0];
+      if(raceDetails.ability_bonuses !== undefined){
+         characterAbilityBonuses = getAbilityBonuses(raceDetails.ability_bonuses);
+         characterBonusAmounts = getIncreaseAmount(raceDetails.ability_bonuses);
+      }
+      // console.log(pageData);
       return [raceDetails, characterAbilityBonuses, characterBonusAmounts];
       
     }
@@ -94,15 +125,18 @@ export const AddRaceDetails = (props) => {
   let raceDetails = null;
   let characterAbilityBonuses = null;
   let characterBonusAmounts = null;
-  const abilityBonuses = null;
+  
   if(pageData !== null){
      raceDetails = pageData[0];
      characterAbilityBonuses = pageData[1];
      characterBonusAmounts = pageData[2];
      const abilityBonuses = combineAbilityBonuses(characterAbilityBonuses, characterBonusAmounts);
-     
+    setCurrentCharacter(prevState => ({
+      ...prevState,
+      abilityBonuses
+    }));
   }
-  console.log(typeof pageData);
+ 
   // const averageRaceAge = getAvgAge(raceDetails.age);
   
   return (

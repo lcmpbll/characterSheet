@@ -13,6 +13,7 @@ const {
     speed,
     age,
     size,
+    abilityBonuses,
   }
 } = characterCreationFormModel;
 
@@ -29,6 +30,6 @@ export default [
     [speed.name]: Yup.string().required(`${speed.requiredErrorMsg}`),
     [size.name]: Yup.string().required(`${size.requiredErrorMsg}`),
     [age.name]: Yup.string().required(`${age.name.requiredErrorMsg}`),
-
+    [abilityBonuses.name]: Yup.object().required(`${abilityBonuses.name.requiredErrorMessage}`),
   })
 ]

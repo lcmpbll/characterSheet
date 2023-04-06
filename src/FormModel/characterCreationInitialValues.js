@@ -13,6 +13,7 @@ const {
     speed,
     age,
     size,
+    abilityBonuses,
   }
 } = characterCreationFormModel;
 
@@ -26,6 +27,7 @@ export default {
   [level.name]: 1,
   [speed.name]: '',
   [age.name]: '',
-  [size.name]: ''
+  [size.name]: '',
+  [abilityBonuses.name]: [],
 };
 
