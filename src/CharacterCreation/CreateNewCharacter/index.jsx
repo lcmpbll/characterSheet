@@ -3,13 +3,13 @@ import { MobileStepper, Step, StepLabel, Button, Typography, Box } from '@mui/ma
 import { Formik, Form } from 'formik';
 import { NameRaceClass } from '../Forms/NameRaceClass';
 import { AddRaceDetails } from '../Forms/AddRace.jsx';
-
+import FormHeader from '../../Components/FormHeader';
 
 import validationSchema from '../../FormModel/characterCreationValidationSchema';
 import characterCreationFormModel from '../../FormModel/characterCreationFormModel';
 import initialValues from '../../FormModel/characterCreationInitialValues';
 
-const steps = ['Name', 'Race', 'Class', 'Confirm'];
+
 const { formId, formField } = characterCreationFormModel;
 
 function _renderStepContent(step) {
@@ -34,56 +34,44 @@ function _renderStepContent(step) {
 export const FormContext = createContext();
 
 const CreateNewCharacterPage  = (props) =>  {
+  const steps = ['Name', 'Add Race Details', 'Class', 'Confirm'];
   
   const [activeStep, setActiveStep ] = useState(0);
+  const currentTitle = steps[activeStep]
   const currentValidationSchema = validationSchema[activeStep]
   const isLastStep = activeStep === steps.length -1;
   const [currentCharacter, setCurrentCharacter] = useState({});
   function _sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
+    
   }
   
-  const getValuesNames = (values) => {
-    return  Object.keys(values);
-  }
-  
-  const getValuesValues = (values) => {
-    return Object.values(values);
-  }
-  
-  // const updateCurrentCharacter = async(values) => {
-  //   const keys = getValuesNames(values);
-  //   const entries = getValuesValues(values);
-  //   for(let i = 0; i < keys.length; i ++){
-  //       setCurrentCharacter(prevState  => ({
-  //       ...prevState,
-  //       [keys[i]]: entries[i]
-  //     }))
-  //   }
-  //   return currentCharacter;
-  // }
   
   async function _submitCharacter(values, actions){
     setCurrentCharacter(values)
-    await _sleep(10000);
+    await _sleep(1000);
     // await updateCurrentCharacter(values);
-    console.log(currentCharacter);
     alert(JSON.stringify(currentCharacter, null, 2));
     actions.setSubmitting(false);
-    setActiveStep(activeStep + 1);
+    console.log(currentCharacter);
+    // setActiveStep(activeStep + 1);
   }
   
-  function _handleSubmit(values, actions){
+  async function _handleSubmit(values, actions){
     if(isLastStep){
       handleAddingCharacterToList(values)
     } else {
-      setActiveStep(activeStep + 1);
+      setCurrentCharacter(values)
       _submitCharacter(values);
+     
+     
+      setTimeout(setActiveStep(activeStep + 1), 1000);
       actions.setTouched({});
       actions.setSubitting(false);
+      
     }
   }
-
+  console.log(steps[activeStep])
   
   function _handleBack() {
     setActiveStep(activeStep -1);
@@ -98,6 +86,7 @@ const CreateNewCharacterPage  = (props) =>  {
           </MobileStepper>
         </Box>
         <Box>
+          <FormHeader formTitle={currentTitle}/>
           {activeStep === steps.length ? (<h1>Success</h1>) : (
             <Formik
               initialValues={initialValues}
