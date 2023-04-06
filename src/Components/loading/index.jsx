@@ -37,7 +37,6 @@ export default Loading;
 
 
 const Dot = (props) => {
-  console.log(props)
   return (
     <Box sx={{
       border: '2px #0E86D4',
