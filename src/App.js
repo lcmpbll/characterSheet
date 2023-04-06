@@ -22,7 +22,7 @@ export default function App() {
   //   }
     
   // }
-  const newCharacter = characterList[0];
+ 
   return (
     <div className="App">
       <Box>
@@ -35,10 +35,6 @@ export default function App() {
           exact
           path="/new"
           element={
-            // <NewCharacterForm
-            //   handleAddingCharacterToList={handleAddingCharacterToList}
-            //   characterList={characterList}
-            // />
             <CreateNewCharacterPage handleAddingCharacterToList={handleAddingCharacterToList} characterList={characterList} />
           }
         />
