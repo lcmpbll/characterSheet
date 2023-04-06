@@ -53,7 +53,12 @@ export default {
       name: 'ownerId',
       label: 'owner id',
       requiredErrorMessage: 'Owner Id is required.'
-    }
+    },
+    abilityBonuses: {
+      name: 'abilityBonuses',
+      label: 'Ability Bonuses',
+      requiredErrorMessage: 'This is not required.'
+    },
     // expiryDate: {
     //   name: 'expiryDate',
     //   label: 'Expiry date*',
