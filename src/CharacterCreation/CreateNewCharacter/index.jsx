@@ -1,29 +1,33 @@
-import React, { useEffect, useState, createContext } from 'react';
+import React, { useEffect, useState, createContext, useContext } from 'react';
 import { MobileStepper, Step, StepLabel, Button, Typography, Box } from '@mui/material';
 import { Formik, Form } from 'formik';
 import { NameRaceClass } from '../Forms/NameRaceClass';
 import { AddRaceDetails } from '../Forms/AddRace.jsx';
 import FormHeader from '../../Components/FormHeader';
-
+import { withData } from '../../HOC/withFormData';
 import validationSchema from '../../FormModel/characterCreationValidationSchema';
 import characterCreationFormModel from '../../FormModel/characterCreationFormModel';
 import initialValues from '../../FormModel/characterCreationInitialValues';
+
+
 
 
 const { formId, formField } = characterCreationFormModel;
 //const step = ['Name', 'Add Race Details', 'Class', 'Confirm'];
 
 function _renderStepContent(steps, data) {
-
+  const { currentCharacter } = useContext(FormContext);
+  console.log(currentCharacter)
+  const AddRaceDetailsWithData = withData(AddRaceDetails, currentCharacter?.race?.url)
   
   switch (steps) {
     case 0: 
       return <NameRaceClass formField={formField} data={data}/>;
+    // case 1: 
+      // return <AddRaceDetails formField={formField} data={data} />;
     case 1: 
-      return <AddRaceDetails formField={formField} />;
+      return <AddRaceDetailsWithData formField={formField}/>
     case 2: 
-      return <h1>Class</h1>;
-    case 3: 
       return <h1>Confirm</h1>;
     default:
       return <>Not Found</>;
@@ -53,7 +57,7 @@ const CreateNewCharacterPage  = (props) =>  {
   const [currentCharacter, setCurrentCharacter] = useState({});
   const [data, setData] = useState(null);
   
-  
+ 
  
   useEffect(() => {
     
@@ -76,12 +80,12 @@ const CreateNewCharacterPage  = (props) =>  {
   }
   
   
-  async function _submitCharacter(values, actions){
+  async function _submitCharacter(values){
     setCurrentCharacter(values)
     await _sleep(1000);
     // await updateCurrentCharacter(values);
     alert(JSON.stringify(currentCharacter, null, 2));
-    actions.setSubmitting(false);
+    // actions.setSubmitting(false);
     // console.log(currentCharacter);
     // setActiveStep(activeStep + 1);
   }
