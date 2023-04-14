@@ -8,21 +8,22 @@ export default {
     },
     lastName: {
       name: 'lastName',
-      label: 'Last name*',
+      label: 'Last Name',
       requiredErrorMsg: 'Last name is required'
     },
     characterClass: {
       name: 'characterClass',
-      label: 'Class*',
+      label: 'Class',
       requiredErrorMsg: 'A class selection is required'
     },
     race: {
       name: 'race',
-      label: 'A race selection is required'
+      label: 'Race',
+      requiredErrorMsg: 'A race selection is required'
     },
     gender: {
       name: 'gender',
-      label: 'Gender*',
+      label: 'Gender',
       requiredErrorMsg: 'City is required'
     },
     characterId: {
@@ -31,22 +32,22 @@ export default {
     },
     level: {
       name: 'level',
-      label: 'Level*',
+      label: 'Level',
       requiredErrorMsg: 'Level is required',
       invalidErrorMsg: 'Please select a level'
     },
-    speed: {
+    form_speed: {
       name: 'speed',
-      label: 'Speed*',
+      label: 'Speed',
       requiredErrorMsg: 'Speed is required'
     },
-    age: {
+    form_age: {
       name: 'age',
       label: 'Age'
     },
-    size: {
+    form_size: {
       name: 'size',
-      label: 'Size*',
+      label: 'Size',
       requiredErrorMsg: 'Size is requied'
     },
     ownerId: {
@@ -54,7 +55,7 @@ export default {
       label: 'owner id',
       requiredErrorMessage: 'Owner Id is required.'
     },
-    abilityBonuses: {
+    form_abilityBonuses: {
       name: 'abilityBonuses',
       label: 'Ability Bonuses',
       requiredErrorMessage: 'This is not required.'
