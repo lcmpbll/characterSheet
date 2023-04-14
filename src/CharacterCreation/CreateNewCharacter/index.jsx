@@ -4,11 +4,11 @@ import { Formik, Form } from 'formik';
 import { NameRaceClass } from '../Forms/NameRaceClass';
 import { AddRaceDetails } from '../Forms/AddRace.jsx';
 import FormHeader from '../../Components/FormHeader';
-import { withData } from '../../HOC/withFormData';
+import { withData, withDoubleData } from '../../HOC/withFormData';
 import validationSchema from '../../FormModel/characterCreationValidationSchema';
 import characterCreationFormModel from '../../FormModel/characterCreationFormModel';
 import initialValues from '../../FormModel/characterCreationInitialValues';
-
+import {AddClassDetails} from '../Forms/AddClass';
 
 
 
@@ -16,13 +16,15 @@ const { formId, formField } = characterCreationFormModel;
 //const step = ['Name', 'Add Race Details', 'Class', 'Confirm'];
 
 function _renderStepContent(steps, data) {
+  const initialUrls = ['/api/races', '/api/classes'];
   const { currentCharacter } = useContext(FormContext);
-  console.log(currentCharacter)
+  const NameRaceClassWithData = withDoubleData(NameRaceClass, initialUrls )
   const AddRaceDetailsWithData = withData(AddRaceDetails, currentCharacter?.race?.url)
-  
+  const AddClassDetailsWithData = withData(AddClassDetails, currentCharacter?.class?.url)
   switch (steps) {
     case 0: 
-      return <NameRaceClass formField={formField} data={data}/>;
+      return <NameRaceClassWithData formField={formField} />
+      //<NameRaceClass formField={formField} data={data}/>;
     // case 1: 
       // return <AddRaceDetails formField={formField} data={data} />;
     case 1: 
