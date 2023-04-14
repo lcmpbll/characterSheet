@@ -23,8 +23,8 @@ import { SelectField } from '../../FormFields/SelectField';
 export const getOptions = (data) => {
   let array = [];
   
-  Object.values(data.default).forEach((val) => array.push(val.name));
-  array.push("Other");
+  Object.values(data.default).forEach((val) => array.push(val));
+  array.push({name: "Other", url: null,  });
   return array;
 };
 
@@ -35,8 +35,8 @@ export const getRaceOptions = (data) => {
   // return array;
   if(data !== null){
     console.log(data, 'ln 32');
-    data.forEach((val) => array.push(val.name));
-    
+    data.forEach((val) => array.push(val));
+    array.push({name: "Other", url: null})
     return array;
     
   }
@@ -58,7 +58,7 @@ export const NameRaceClass = (props) => {
   const raceOptions = getRaceOptions(data);
   const classOptions = getOptions(classes);
   const isNonMobile = useMediaQuery("min-width: 600px");
-  
+ 
   setTimeout(() => {
     if(data !== undefined){
       setIsLoading(false);
