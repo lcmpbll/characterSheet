@@ -8,6 +8,7 @@ import { FormContext } from '../CreateNewCharacter';
  // Add proficiencies
  // add clickable for more information to traits, and languages
  // add slider for age selection?
+ // switch size selection to slectfield, 
 
 
 
@@ -115,7 +116,7 @@ export const AddRaceDetails = ({formField, data }) => {
         <InputField name={form_speed.name} label={form_speed.label} fullWidth/>
         <InputField name={form_size.name} label={form_size.label} fullWidth/> 
         <InputField name={form_age.name} label={form_age.label} fullWidth/> 
-        {/* <InputField name={abilityBonuses.name} label={abilityBonuses.label} fullWidth/> */}
+        <InputField name={abilityBonuses.name} label={abilityBonuses.label} fullWidth sx={{display: 'none'}}/>
       </Box>
       {/* {isLoading === false ?   */}
       <Box display="grid" justifyContent="start" m='20px'>
