@@ -32,7 +32,7 @@ export function SelectField(props) {
       <Select {...field} value={selectedValue ? selectedValue : ''}>
         {data.map((item, index) => (
           <MenuItem key={index} value={item}>
-            {item}
+            {item.name}
           </MenuItem>
         ))}
       </Select>

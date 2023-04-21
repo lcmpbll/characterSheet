@@ -10,22 +10,24 @@ const {
     gender,
     characterId,
     level,
-    speed,
-    age,
-    size,
+    form_speed,
+    form_age,
+    form_size,
+    form_abilityBonuses,
   }
 } = characterCreationFormModel;
 
 export default {
   [firstName.name]: '',
   [lastName.name]: '',
-  [characterClass.name]: '',
-  [race.name]: '',
+  [characterClass.name]: null,
+  [race.name]: null,
   [gender.name]: '',
   [characterId.name]: uuid(),
   [level.name]: 1,
-  [speed.name]: '',
-  [age.name]: '',
-  [size.name]: ''
+  [form_speed.name]: '',
+  [form_age.name]: '',
+  [form_size.name]: '',
+  [form_abilityBonuses.name]: null,
 };
 
