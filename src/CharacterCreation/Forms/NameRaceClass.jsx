@@ -66,8 +66,7 @@ export const NameRaceClass = (props) => {
     setClassOptions(getOptions(data.results));
     setIsLoadingClass(false)
   }
-  console.log(raceOptions)
-  console.log(classOptions, 'class')
+
   const isNonMobile = useMediaQuery("min-width: 600px");
 
 
