@@ -61,12 +61,11 @@ const combineAbilityBonuses = (abilityName, bonusAmount) => {
 
 export const AddRaceDetails = ({formField, data }) => {
   const {
-    form_speed,
-    form_size,
-    form_age,
-    form_abilityBonuses
+    character_speed,
+    character_size,
+    character_age,
+    character_abilityBonuses
   } = formField;
-  console.log(data)
   const { 
     ability_bonuses,
     age,
@@ -113,10 +112,10 @@ export const AddRaceDetails = ({formField, data }) => {
     <Box>
       <Box>
 
-        <InputField name={form_speed.name} label={form_speed.label} fullWidth/>
-        <InputField name={form_size.name} label={form_size.label} fullWidth/> 
-        <InputField name={form_age.name} label={form_age.label} fullWidth/> 
-        <InputField name={abilityBonuses.name} label={abilityBonuses.label} fullWidth sx={{display: 'none'}}/>
+        <InputField name={character_speed.name} label={character_speed.label} fullWidth/>
+        <InputField name={character_size.name} label={character_size.label} fullWidth/> 
+        <InputField name={character_age.name} label={character_age.label} fullWidth/> 
+        <InputField name={character_abilityBonuses.name} label={character_abilityBonuses.label} fullWidth sx={{display: 'none'}}/>
       </Box>
       {/* {isLoading === false ?   */}
       <Box display="grid" justifyContent="start" m='20px'>
