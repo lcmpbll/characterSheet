@@ -1,4 +1,4 @@
-import React, { useEffect, useState, createContext, useContext } from 'react';
+import React, { useEffect, useState, createContext, useContext, useCallback } from 'react';
 import { MobileStepper, Step, StepLabel, Button, Typography, Box } from '@mui/material';
 import { Formik, Form } from 'formik';
 import { NameRaceClass } from '../Forms/NameRaceClass';
@@ -13,24 +13,25 @@ import {AddClassDetails} from '../Forms/AddClass';
 
 
 const { formId, formField } = characterCreationFormModel;
-//const step = ['Name', 'Add Race Details', 'Class', 'Confirm'];
+const step = ['Name', 'Add Race Details', 'Class', 'Confirm'];
 
 function _renderStepContent(steps, data) {
-  const initialUrls = ['/api/races', '/api/classes'];
+  const initialUrl = '/api/classes'
   const { currentCharacter } = useContext(FormContext);
-  const NameRaceClassWithData = withDoubleData(NameRaceClass, initialUrls )
+  const NameRaceClassWithData = withData(NameRaceClass, initialUrl)
   const AddRaceDetailsWithData = withData(AddRaceDetails, currentCharacter?.race?.url)
   const AddClassDetailsWithData = withData(AddClassDetails, currentCharacter?.class?.url)
+
   switch (steps) {
     case 0: 
-      return <NameRaceClassWithData formField={formField} />
+      return <NameRaceClassWithData formField={formField} races={data} />
       //<NameRaceClass formField={formField} data={data}/>;
     // case 1: 
       // return <AddRaceDetails formField={formField} data={data} />;
     case 1: 
       return <AddRaceDetailsWithData formField={formField}/>
     case 2: 
-      return <h1>Confirm</h1>;
+      return <AddClassDetailsWithData/>;
     default:
       return <>Not Found</>;
     
@@ -50,7 +51,7 @@ function _renderStepContent(steps, data) {
 
 export const FormContext = createContext();
 
-const CreateNewCharacterPage  = (props) =>  {
+export const CreateNewCharacterPage  = (props) =>  {
   
   const steps = ['Name', 'Add Race Details', 'Class', 'Confirm'];
   const [activeStep, setActiveStep ] = useState(0);
@@ -73,7 +74,7 @@ const CreateNewCharacterPage  = (props) =>  {
       
       setData(jsonifiedResponse.results);
       
-      console.log(jsonifiedResponse.results, 'ln 73')
+     
     })
    }, [])
   function _sleep(ms) {
@@ -82,22 +83,23 @@ const CreateNewCharacterPage  = (props) =>  {
   }
   
   
-  async function _submitCharacter(values){
+  const _submitCharacter = useCallback(async (values) => {
+    
     setCurrentCharacter(values)
     await _sleep(1000);
     // await updateCurrentCharacter(values);
     alert(JSON.stringify(currentCharacter, null, 2));
     // actions.setSubmitting(false);
-    // console.log(currentCharacter);
-    // setActiveStep(activeStep + 1);
-  }
+    console.log(currentCharacter);
+    setActiveStep(activeStep + 1);
+  }, [currentCharacter, setCurrentCharacter]);
   
-  async function _handleSubmit(values, actions){
+  const _handleSubmit = useCallback(async (values, actions) => {
     if(isLastStep){
       handleAddingCharacterToList(values)
     } else {
       setCurrentCharacter(values)
-      _submitCharacter(values);
+      await _submitCharacter(values);
      
      
       setTimeout(setActiveStep(activeStep + 1), 1000);
@@ -105,7 +107,7 @@ const CreateNewCharacterPage  = (props) =>  {
       actions.setSubitting(false);
       
     }
-  }
+  }, [activeStep, isLastStep, setCurrentCharacter]);
   //Set steps and get data? 
   
   function _handleBack() {
@@ -154,4 +156,3 @@ const CreateNewCharacterPage  = (props) =>  {
   );
 }
 
-export default CreateNewCharacterPage;

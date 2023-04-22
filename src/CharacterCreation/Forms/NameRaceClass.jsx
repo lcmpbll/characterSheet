@@ -9,8 +9,7 @@ import {
   OutlinedInput,
   Grid
 } from "@mui/material";
-import { v4 as uuid } from "uuid";
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import Loading from '../../Components/loading';
 import useMediaQuery from "@mui/material/useMediaQuery";
 import * as classes from "../../data/classes";
@@ -20,13 +19,13 @@ import InputField from '../../FormFields/InputField';
 import { SelectField } from '../../FormFields/SelectField';
 
 
-// export const getOptions = (data) => {
-//   let array = [];
+export const getOptions = (data) => {
+  let array = [];
   
-//   Object.values(data.default).forEach((val) => array.push(val));
-//   array.push({name: "Other", url: null,  });
-//   return array;
-// };
+  Object.values(data).forEach((val) => array.push(val));
+  array.push({name: "Other", url: null,  });
+  return array;
+};
 
 // export const getRaceOptions = (data) => {
 //   let array = [];
@@ -51,34 +50,39 @@ export const NameRaceClass = (props) => {
       race,
       characterClass
     },
+    races,
     data
   } = props;
+  const [raceOptions, setRaceOptions] = useState([]);
+  const [classOptions, setClassOptions] = useState([]);
   // Form Setup
   const [isLoading, setIsLoading] = useState(true);
-  
-  const raceOptions = ['One', 'Two'];
-  //getRaceOptions(data);
-  const classOptions = ['One', 'Two'];
-  //getOptions(classes);
+  const [isLoadingClass, setIsLoadingClass] = useState(true)
+  if (races !== null && raceOptions.length < 2) {
+    setRaceOptions(getOptions(races))
+    setIsLoading(false)
+  }
+  if(data !== null && classOptions.length < 2){
+    setClassOptions(getOptions(data.results));
+    setIsLoadingClass(false)
+  }
+  console.log(raceOptions)
+  console.log(classOptions, 'class')
   const isNonMobile = useMediaQuery("min-width: 600px");
- 
-  setTimeout(() => {
-    if(data !== undefined){
-      setIsLoading(false);
-    }   
-  }, 3000)
+
+
  
 
-  return (
+  return data? (
     <Box>
-      {isLoading ? <Loading/> : (
+      {isLoading || isLoadingClass ? <Loading/> : (
          <Box>
-          <InputField name={firstName.name} label={firstName.name} fullWidth/>
-          <InputField name={lastName.name} label={lastName.name} fullWidth/>
-          {/* <SelectField name={characterClass.name} label={characterClass.name} data={classOptions} fullWidth/>
-          <SelectField name={race.name} label={race.name} data={raceOptions} fullWidth /> */}
+          <InputField name={firstName.name} label={firstName.label} fullWidth/>
+          <InputField name={lastName.name} label={lastName.label} fullWidth/>
+          <SelectField name={race.name} label={race.label} data={raceOptions} fullWidth /> 
+          <SelectField name={characterClass.name} label={characterClass.label} data={classOptions} fullWidth /> 
         </Box>
       )}
     </Box>
-  )
+  ) : null ; 
 }

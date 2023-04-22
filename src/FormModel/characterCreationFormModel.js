@@ -3,7 +3,7 @@ export default {
   formField: {
     firstName: {
       name: 'firstName',
-      label: 'First name*',
+      label: 'First Name',
       requiredErrorMsg: 'First name is required'
     },
     lastName: {
@@ -36,16 +36,16 @@ export default {
       requiredErrorMsg: 'Level is required',
       invalidErrorMsg: 'Please select a level'
     },
-    form_speed: {
+    character_speed: {
       name: 'speed',
       label: 'Speed',
       requiredErrorMsg: 'Speed is required'
     },
-    form_age: {
+    character_age: {
       name: 'age',
       label: 'Age'
     },
-    form_size: {
+    character_size: {
       name: 'size',
       label: 'Size',
       requiredErrorMsg: 'Size is requied'
@@ -55,7 +55,7 @@ export default {
       label: 'owner id',
       requiredErrorMessage: 'Owner Id is required.'
     },
-    form_abilityBonuses: {
+    character_abilityBonuses: {
       name: 'abilityBonuses',
       label: 'Ability Bonuses',
       requiredErrorMessage: 'This is not required.'

@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import { Box, Typography } from "@mui/material";
 // import { NewCharacterForm } from "./CharacterCreationModule/NewCharacter";
-import CreateNewCharacterPage from './CharacterCreation/CreateNewCharacter';
+import { CreateNewCharacterPage } from './CharacterCreation/CreateNewCharacter';
 import Menu from "./Menu";
 import Home from "./Home";
 
