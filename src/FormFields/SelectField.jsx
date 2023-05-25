@@ -21,7 +21,7 @@ export function SelectField(props) {
   const handleChange = (event) => {
     const selectedItem = event.target.value;
     const selectedValue = data.find((item) => item.index === selectedItem);
-    console.log(selectedValue);
+
 
     field.onChange({   
       target: {
