@@ -1,37 +1,60 @@
-import React, { useEffect, useState, createContext, useContext, useCallback } from 'react';
+import React, { useEffect, useState, createContext, useContext, useCallback, useMemo, memo } from 'react';
 import { MobileStepper, Step, StepLabel, Button, Typography, Box } from '@mui/material';
-import { Formik, Form } from 'formik';
-import { NameRaceClass } from '../Forms/NameRaceClass';
-import { AddRaceDetails } from '../Forms/AddRace.jsx';
+import { Formik } from 'formik';
+import { Form } from 'formik';
+import NameRaceClass from '../Forms/NameRaceClass';
+import { AddRaceDetails } from '../Forms/AddRace';
 import FormHeader from '../../Components/FormHeader';
 import { withData, withDoubleData } from '../../HOC/withFormData';
 import validationSchema from '../../FormModel/characterCreationValidationSchema';
 import characterCreationFormModel from '../../FormModel/characterCreationFormModel';
 import initialValues from '../../FormModel/characterCreationInitialValues';
-import {AddClassDetails} from '../Forms/AddClass';
+import AddClassDetails from '../Forms/AddClass';
 
 
 
 const { formId, formField } = characterCreationFormModel;
-const step = ['Name', 'Add Race Details', 'Class', 'Confirm'];
+
 
 function _renderStepContent(steps, data) {
+  console.log(steps);
   const initialUrl = '/api/classes'
   const { currentCharacter } = useContext(FormContext);
-  const NameRaceClassWithData = withData(NameRaceClass, initialUrl)
-  const AddRaceDetailsWithData = withData(AddRaceDetails, currentCharacter?.race?.url)
-  const AddClassDetailsWithData = withData(AddClassDetails, currentCharacter?.class?.url)
+  // const NameRaceClassWithData = withData(NameRaceClass, initialUrl)
+  // const MemoizedNameRaceClass = useMemo(() => memo(<NameRaceClassWithData races={data} formField={formField} />, [data, formField]));
+  // const AddRaceDetailsWithData = withData(AddRaceDetails, currentCharacter?.race?.url)
+  // const MemoizedAddRaceDetails = useMemo(() => memo(<AddRaceDetailsWithData formField={formField} />, [formField]));
+  // const AddClassDetailsWithData = withData(AddClassDetails, currentCharacter?.class?.url)
+  // const MemoizedAddClassDetails = useMemo(() => memo(<AddClassDetailsWithData formField={formField} />, [formField]));
+  const NameRaceClassWithData = useMemo(() => withData(NameRaceClass, initialUrl), []);
+  const MemoizedNameRaceClass = useMemo(
+    () => memo(() => <NameRaceClassWithData races={data} formField={formField} />),
+    [data, formField]
+  );
+  const AddRaceDetailsWithData = useMemo(() => withData(AddRaceDetails, currentCharacter?.race?.url), [currentCharacter?.race?.url]);
+  const MemoizedAddRaceDetails = useMemo(
+    () => memo(() => <AddRaceDetailsWithData formField={formField} />),
+    [formField, currentCharacter?.race?.url]
+  );
 
+  const AddClassDetailsWithData = useMemo(() => withData(AddClassDetails, currentCharacter?.class?.url), [currentCharacter?.class?.url]);
+  const MemoizedAddClassDetails = useMemo(
+    () => memo(() => <AddClassDetailsWithData formField={formField} />),
+    [formField, currentCharacter?.class?.url]
+  );
   switch (steps) {
     case 0: 
-      return <NameRaceClassWithData formField={formField} races={data} />
+      return <MemoizedNameRaceClass formField={formField} data={data}  />
+      // return <h1>hahaha</h1>
       //<NameRaceClass formField={formField} data={data}/>;
     // case 1: 
       // return <AddRaceDetails formField={formField} data={data} />;
     case 1: 
-      return <AddRaceDetailsWithData formField={formField}/>
+      return <MemoizedAddRaceDetails />
+      // return <h1>hehehe</h1>
     case 2: 
-      return <AddClassDetailsWithData/>;
+      // return <MemoizedAddClassDetails/>;
+      return <h1>hohohoho</h1>
     default:
       return <>Not Found</>;
     
@@ -102,7 +125,7 @@ export const CreateNewCharacterPage  = (props) =>  {
       await _submitCharacter(values);
      
      
-      setTimeout(setActiveStep(activeStep + 1), 1000);
+      setTimeout(setActiveStep(activeStep += 1), 1000);
       actions.setTouched({});
       actions.setSubitting(false);
       
