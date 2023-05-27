@@ -17,15 +17,9 @@ const { formId, formField } = characterCreationFormModel;
 
 
 function _renderStepContent(steps, data) {
-  console.log(steps);
+  
   const initialUrl = '/api/classes'
   const { currentCharacter } = useContext(FormContext);
-  // const NameRaceClassWithData = withData(NameRaceClass, initialUrl)
-  // const MemoizedNameRaceClass = useMemo(() => memo(<NameRaceClassWithData races={data} formField={formField} />, [data, formField]));
-  // const AddRaceDetailsWithData = withData(AddRaceDetails, currentCharacter?.race?.url)
-  // const MemoizedAddRaceDetails = useMemo(() => memo(<AddRaceDetailsWithData formField={formField} />, [formField]));
-  // const AddClassDetailsWithData = withData(AddClassDetails, currentCharacter?.class?.url)
-  // const MemoizedAddClassDetails = useMemo(() => memo(<AddClassDetailsWithData formField={formField} />, [formField]));
   const NameRaceClassWithData = useMemo(() => withData(NameRaceClass, initialUrl), []);
   const MemoizedNameRaceClass = useMemo(
     () => memo(() => <NameRaceClassWithData races={data} formField={formField} />),
@@ -37,14 +31,14 @@ function _renderStepContent(steps, data) {
     [formField, currentCharacter?.race?.url]
   );
 
-  const AddClassDetailsWithData = useMemo(() => withData(AddClassDetails, currentCharacter?.class?.url), [currentCharacter?.class?.url]);
+  const AddClassDetailsWithData = useMemo(() => withData(AddClassDetails, currentCharacter?.characterClass?.url), [currentCharacter?.characterClass?.url]);
   const MemoizedAddClassDetails = useMemo(
     () => memo(() => <AddClassDetailsWithData formField={formField} />),
-    [formField, currentCharacter?.class?.url]
+    [formField, currentCharacter?.characterClass?.url]
   );
   switch (steps) {
     case 0: 
-      return <MemoizedNameRaceClass formField={formField} data={data}  />
+      return <MemoizedNameRaceClass  />
       // return <h1>hahaha</h1>
       //<NameRaceClass formField={formField} data={data}/>;
     // case 1: 
@@ -53,8 +47,8 @@ function _renderStepContent(steps, data) {
       return <MemoizedAddRaceDetails />
       // return <h1>hehehe</h1>
     case 2: 
-      // return <MemoizedAddClassDetails/>;
-      return <h1>hohohoho</h1>
+      return <MemoizedAddClassDetails/>;
+      //  return <h1>hohohoho</h1>
     default:
       return <>Not Found</>;
     
@@ -75,11 +69,13 @@ function _renderStepContent(steps, data) {
 export const FormContext = createContext();
 
 export const CreateNewCharacterPage  = (props) =>  {
-  
+  const { handleAddingCharacterToList } = props
   const steps = ['Name', 'Add Race Details', 'Class', 'Confirm'];
-  const [activeStep, setActiveStep ] = useState(0);
+  const [activeStep, setActiveStep] = useState(0);
+  // const [isSubmitting, setIsSubmitting] = useState(false);
   const currentValidationSchema = validationSchema[activeStep]
-  const isLastStep = activeStep === steps.length -1;
+  
+  const isLastStep = activeStep === steps.length - 1;
   const [currentCharacter, setCurrentCharacter] = useState({});
   const [data, setData] = useState(null);
   
@@ -100,42 +96,50 @@ export const CreateNewCharacterPage  = (props) =>  {
      
     })
    }, [])
+   
   function _sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
     
   }
   
-  
-  const _submitCharacter = useCallback(async (values) => {
-    
-    setCurrentCharacter(values)
+  async function _submitForm(values, actions) {
     await _sleep(1000);
-    // await updateCurrentCharacter(values);
-    alert(JSON.stringify(currentCharacter, null, 2));
+    alert(JSON.stringify(values, null, 2));
     // actions.setSubmitting(false);
-    console.log(currentCharacter);
+    setCurrentCharacter(values);
+    handleAddingCharacterToList(currentCharacter);
     setActiveStep(activeStep + 1);
-  }, [currentCharacter, setCurrentCharacter]);
+  }
   
-  const _handleSubmit = useCallback(async (values, actions) => {
-    if(isLastStep){
-      handleAddingCharacterToList(values)
+  function _handleSubmit(values, actions) {
+    if (isLastStep) {
+      _submitForm(values, actions);
     } else {
-      setCurrentCharacter(values)
-      await _submitCharacter(values);
-     
-     
-      setTimeout(setActiveStep(activeStep += 1), 1000);
+      setCurrentCharacter(values);
       actions.setTouched({});
-      actions.setSubitting(false);
-      
+      actions.setSubmitting(false);
+      setTimeout(() => {
+        setActiveStep(activeStep + 1);
+        
+      }, 0)
+   
+      console.log(currentCharacter);
     }
-  }, [activeStep, isLastStep, setCurrentCharacter]);
-  //Set steps and get data? 
+  }
   
+  
+ 
+  //Set steps and get data? 
+  function _handleNext() {
+    const nextStep = activeStep + 1;
+    setActiveStep(nextStep)
+
+  }
   function _handleBack() {
     setActiveStep(activeStep -1);
   }
+  
+  
   
   return (
     <FormContext.Provider value={{ currentCharacter, setCurrentCharacter }}>
@@ -153,7 +157,7 @@ export const CreateNewCharacterPage  = (props) =>  {
               validationSchema={currentValidationSchema}
               onSubmit={_handleSubmit}
             >
-              {({ isSubmitting }) => (
+              {() => (
                 <Form id={formId}>
                   {_renderStepContent(activeStep, data)}
                   <Box display={'flex'} flexDirection={'row'} justifyContent={'space-between'} m={'8px'}>
