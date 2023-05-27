@@ -23,6 +23,16 @@ export const getOptions = (data) => {
     return items[0][1];
   }
 };
+
+const filterSavingThrows = (proficiencies) => {
+  const noSavesArray = proficiencies.filter((profs) => profs.name.includes('Saving Throw:') === false);
+  return noSavesArray;
+}
+
+const constructNewStats = (hd) => {
+  const newStats = hd;
+  return newStats;
+}
 const AddClassDetails = ({formField, data}) => {
   const {
     index,
@@ -40,20 +50,29 @@ const AddClassDetails = ({formField, data}) => {
     spellcasting
   } = data || {};
   const {currentCharacter, setCurrentCharacter} = useContext(FormContext);
+  // if(data){
+  //   setCurrentCharacter(constructNewStats(hit_die));
+  // }
+  // setCurrentCharacter(hit_die);
   // console.log(currentCharacter, 'class')
   //  const proficienciesOptsNumber = getProfienciesNumbers( proficiency_choices)
   //  console.log(proficienciesOptsNumber)
   //const proficienciesOptions = proficiency_choices.forEach((option) => (option.from.forEach((item) => (item.name))))
-  // console.log(proficiency_choices)
+  console.log(saving_throws)
+  let noSaves = [];
+  if(proficiencies !== undefined){
+    
+    noSaves = filterSavingThrows(proficiencies);
+  }
   const parsedChoices = getOptions(proficiency_choices);
-  console.log(parsedChoices, 'pc');
+  
   return  data ? (
     <Box>
-      <h1>{data.name} Details</h1>
+      <h1>{name} Details</h1>
       <Box sx={{display: 'flex', flex: 2, flexDirection: 'row'}}>
         <Box sx={{flex: 1}}>
           <h3>Proficiencies</h3>
-          {proficiencies.map((prof) => (
+          {noSaves.map((prof) => (
             <p>{prof.name}</p>
           ))}
         </Box>
@@ -79,8 +98,10 @@ const AddClassDetails = ({formField, data}) => {
           {hit_die}
         </Box>
         <Box>
-          <p>Hit Die</p>
-          {hit_die}
+          <p>Saving Throw Bonuses</p>
+          {saving_throws.map((bonus) => (
+            <p key={bonus.index}>{bonus.name}</p>
+          ))}
         </Box>
         <Box>
           <p>Hit Die</p>
