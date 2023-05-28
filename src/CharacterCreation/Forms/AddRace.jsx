@@ -1,4 +1,4 @@
-import React, {useState, useContext } from 'react';
+import React, {useState, useContext, useEffect } from 'react';
 import Loading from '../../Components/loading';
 import { Box, Typography, TextField, Grid } from "@mui/material";
 import InputField from '../../FormFields/InputField';
@@ -64,7 +64,7 @@ export const AddRaceDetails = ({formField, data }) => {
     character_speed,
     character_size,
     character_age,
-    character_abilityBonuses
+    // character_abilityBonuses
   } = formField;
   const { 
     ability_bonuses,
@@ -85,26 +85,27 @@ export const AddRaceDetails = ({formField, data }) => {
   // console.log(data, 'stuff');
   
   const [isLoading, setIsLoading] = useState(true);
-  const {setCurrentCharacter} = useContext(FormContext);
+  const {currentCharacter, setCurrentCharacter} = useContext(FormContext);
   
   let characterAbilityBonuses = null;
   let characterBonusAmounts = null;
   let abilityBonuses = null;
-  
-  // if(ability_bonuses !== undefined){
+  useEffect(() => {
+    if(data !== null){
     
-  //   characterAbilityBonuses = getAbilityBonuses(ability_bonuses);
-  //   characterBonusAmounts = getIncreaseAmount(ability_bonuses);
-  //   abilityBonuses = combineAbilityBonuses(characterAbilityBonuses, characterBonusAmounts);
-  //   setCurrentCharacter(prevState => ({
-  //     ...prevState,
-  //     abilityBonuses
-  //   }));
-  //   if(abilityBonuses !== null){
-      
-  //     setIsLoading(false)
-  //   }
-  // }
+      characterAbilityBonuses = getAbilityBonuses(ability_bonuses);
+      characterBonusAmounts = getIncreaseAmount(ability_bonuses);
+      abilityBonuses = combineAbilityBonuses(characterAbilityBonuses, characterBonusAmounts);
+      const currentCharacterWithAbilities = {...currentCharacter, abilityBonuses}
+      setCurrentCharacter(currentCharacterWithAbilities);
+      if(abilityBonuses !== null){
+        
+        setIsLoading(false)
+      }
+      // console.log(currentCharacter);
+    }
+  }, [data])
+ 
  
   // const averageRaceAge = getAvgAge(raceDetails.age);
   
@@ -115,7 +116,7 @@ export const AddRaceDetails = ({formField, data }) => {
         <InputField name={character_speed.name} label={character_speed.label} fullWidth/>
         <InputField name={character_size.name} label={character_size.label} fullWidth/> 
         <InputField name={character_age.name} label={character_age.label} fullWidth/> 
-        <InputField name={character_abilityBonuses.name} label={character_abilityBonuses.label} fullWidth sx={{display: 'none'}}/>
+        {/* <InputField name={character_abilityBonuses.name} label={character_abilityBonuses.label} fullWidth sx={{display: 'none'}}/> */}
       </Box>
       {/* {isLoading === false ?   */}
       <Box display="grid" justifyContent="start" m='20px'>
