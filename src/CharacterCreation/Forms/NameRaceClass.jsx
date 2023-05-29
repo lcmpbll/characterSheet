@@ -1,3 +1,4 @@
+import React, { useState} from "react";
 import {
   Box,
   Button,
@@ -9,11 +10,10 @@ import {
   OutlinedInput,
   Grid
 } from "@mui/material";
-import React, { useState, useContext, useEffect } from "react";
 import Loading from '../../Components/loading';
 import useMediaQuery from "@mui/material/useMediaQuery";
 import * as classes from "../../data/classes";
-import * as races from "../../data/races.json";
+// import * as races from "../../data/races.json";
 import { WidthFull } from "@mui/icons-material";
 import InputField from '../../FormFields/InputField';
 import { SelectField } from '../../FormFields/SelectField';
@@ -41,8 +41,8 @@ export const getOptions = (data) => {
 //   }
 // }
 
-export const NameRaceClass = (props) => {
-  console.log(props)
+const NameRaceClass = (props) => {
+
   const {
     formField: {
       firstName,
@@ -85,3 +85,6 @@ export const NameRaceClass = (props) => {
     </Box>
   ) : null ; 
 }
+
+
+export default NameRaceClass;
