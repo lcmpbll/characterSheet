@@ -7,13 +7,14 @@ const {
     lastName,
     characterClass,
     race,
-    //gender,
+    gender,
     characterId,
     level,
     character_speed,
     character_age,
     character_size,
     character_abilityBonuses,
+    character_skill,
   }
 } = characterCreationFormModel;
 
@@ -29,7 +30,14 @@ export default [
   Yup.object().shape({
     [character_speed.name]: Yup.string().required(`${character_speed.requiredErrorMsg}`),
     [character_size.name]: Yup.string().required(`${character_size.requiredErrorMsg}`),
-    [character_age.name]: Yup.string().required(`${character_age.name.requiredErrorMsg}`),
-    [character_abilityBonuses.name]: Yup.object().required(`${character_abilityBonuses.name.requiredErrorMessage}`),
-  })
+    [character_age.name]: Yup.number().required(`${character_age.name.requiredErrorMsg}`),
+    [character_abilityBonuses.name]: Yup.object(),
+    [character_skill.name]: Yup.object(),
+  }),
+  // Yup.object().shape({
+  //   [character_proficiencies.name]: Yup.object().required(`${character_speed.requiredErrorMsg}`),
+  //   [character_size.name]: Yup.string().required(`${character_size.requiredErrorMsg}`),
+  //   [character_age.name]: Yup.string().required(`${character_age.name.requiredErrorMsg}`),
+  //   [character_abilityBonuses.name]: Yup.object(),
+  // })
 ]

@@ -58,8 +58,12 @@ export default {
     character_abilityBonuses: {
       name: 'abilityBonuses',
       label: 'Ability Bonuses',
-      requiredErrorMessage: 'This is not required.'
+      
     },
+    character_skill: {
+      name: 'character_skills',
+      label: 'Skills'
+    }
     // expiryDate: {
     //   name: 'expiryDate',
     //   label: 'Expiry date*',

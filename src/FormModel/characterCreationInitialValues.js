@@ -14,6 +14,7 @@ const {
     character_age,
     character_size,
     character_abilityBonuses,
+    character_skill
   }
 } = characterCreationFormModel;
 
@@ -28,6 +29,7 @@ export default {
   [character_speed.name]: '',
   [character_age.name]: '',
   [character_size.name]: '',
-  [character_abilityBonuses.name]: null,
+  [character_abilityBonuses.name]: {},
+  [character_skill]: {}
 };
 
