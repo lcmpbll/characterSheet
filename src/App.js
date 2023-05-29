@@ -30,7 +30,6 @@ export default function App() {
         <Menu />
       </Box>
       <Routes>
-        <Route exact path="/" element={<Home />} />
         <Route
           exact
           path="/new"
@@ -38,6 +37,7 @@ export default function App() {
             <CreateNewCharacterPage handleAddingCharacterToList={handleAddingCharacterToList} characterList={characterList} />
           }
         />
+        <Route exact path="/" element={<Home />} />
         
       </Routes>
     </div>
