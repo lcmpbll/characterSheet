@@ -64,7 +64,7 @@ export const AddRaceDetails = ({formField, data }) => {
     character_speed,
     character_size,
     character_age,
-    // character_abilityBonuses
+    character_abilityBonuses
   } = formField;
   const { 
     ability_bonuses,
@@ -96,8 +96,10 @@ export const AddRaceDetails = ({formField, data }) => {
       characterAbilityBonuses = getAbilityBonuses(ability_bonuses);
       characterBonusAmounts = getIncreaseAmount(ability_bonuses);
       abilityBonuses = combineAbilityBonuses(characterAbilityBonuses, characterBonusAmounts);
+    
       const currentCharacterWithAbilities = {...currentCharacter, abilityBonuses}
       setCurrentCharacter(currentCharacterWithAbilities);
+      
       if(abilityBonuses !== null){
         
         setIsLoading(false)
@@ -116,7 +118,7 @@ export const AddRaceDetails = ({formField, data }) => {
         <InputField name={character_speed.name} label={character_speed.label} fullWidth/>
         <InputField name={character_size.name} label={character_size.label} fullWidth/> 
         <InputField name={character_age.name} label={character_age.label} fullWidth/> 
-        {/* <InputField name={character_abilityBonuses.name} label={character_abilityBonuses.label} fullWidth sx={{display: 'none'}}/> */}
+        <InputField name={character_abilityBonuses.name} label={character_abilityBonuses.label} fullWidth />
       </Box>
       {/* {isLoading === false ?   */}
       <Box display="grid" justifyContent="start" m='20px'>
@@ -152,17 +154,9 @@ export const AddRaceDetails = ({formField, data }) => {
                   </Typography>
                 ))}
               </Box>
-              {/* <Box sx={{display: 'grid', justifyContent: 'center'}}>
-                <Typography>Ability Bonuses</Typography>
-                <Box sx={{display: 'grid', gridTemplateColumns: '.3fr .3fr'}}>
-                  <Box>{characterAbilityBonuses?.map((ability, index) => (
-                    <Typography key={index}>{ability}</Typography>
-                  ))}</Box>
-                  <Box>{characterBonusAmounts?.map((bonus, index) => (
-                    <Typography key={index}> + {bonus}</Typography>
-                  ))}</Box>
-                </Box>
-              </Box> */}
+              <Box>
+                <AbilitiesComponent props={ability_bonuses}/>
+              </Box>
             </Box>
             <Box sx={{
               display: 'grid',
@@ -193,4 +187,47 @@ export const AddRaceDetails = ({formField, data }) => {
   ): null;
 };
 
+const checkAbilities = (allAbilities, characterAbilities) => {
 
+  const allAbilitiesKeys = Object.keys(allAbilities).sort();
+  const characterAbilitiiesKeys = Object.keys(characterAbilities).sort();
+ 
+  
+  for(let i  = 0; i <  allAbilitiesKeys.length; i ++){
+    for( let j = 0; j <= characterAbilitiiesKeys.length; j ++){
+      if(allAbilitiesKeys[i] === characterAbilitiiesKeys[j]){
+        
+        allAbilities[allAbilitiesKeys[i]] = characterAbilities[characterAbilitiiesKeys[j]];
+        i += 1;
+        j = 0;
+      }
+    }
+  }
+  return allAbilities;
+}
+
+
+const AbilitiesComponent = (props) => {
+  const {characterAbilities} = props;
+  const allAbilities = { str: 0, dex: 0, int: 0, con: 0, wis: 0, cha: 0};
+  const example = {str: 2, cha: 1};
+  const [displayedAbilities, setDisplayedAbilities] = useState(checkAbilities(allAbilities, example));
+ 
+  return (
+    <Box>
+      <p sx={{m: 0}}>Bonuses:</p>
+      <Box sx={{display: 'flex', flexDirection: 'row', flex: 2, justifyContent: 'center', alignItems: 'center'}}>
+        <Box sx={{display: 'flex', flexDirection: 'column', m: 0, justifyContent: 'flex-start'}}>
+          <p>Stregth: {displayedAbilities.str}</p>
+          <p>Dexterity: {displayedAbilities.dex}</p>
+          <p>Constitution: {displayedAbilities.con}</p>
+        </Box>
+        <Box sx={{display: 'flex', flexDirection: 'column', m: 0, justifyContent: 'flex-start'}}>
+          <p>Intelligence: {displayedAbilities.int}</p>
+          <p>Charisma: {displayedAbilities.cha}</p>
+          <p>Wisdom: {displayedAbilities.wis}</p>
+        </Box>
+      </Box> 
+   </Box>
+  )
+}
