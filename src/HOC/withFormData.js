@@ -20,8 +20,9 @@ export const withData = (Component, url) => {
         
         
       })();
+      
     }, [])
-    return <Component {...props} data={data} />
+    return <Component {...props} data={data} /> ;
   }
 }
 
@@ -56,6 +57,8 @@ export const withDoubleData = (Component, urls) => {
         }).then((jsonifiedResponse2) => {
           // dataArray.push(jsonifiedResponse.results);
           // let newData = data.push(jsonifiedResponse.results)
+          // let thisData = {...data, races: jsonifiedResponse2.results}
+          // setData(thisData);
           setData({...data, races: jsonifiedResponse2.results});
           console.log(data, 'backend2')
         })
