@@ -1,11 +1,11 @@
-import React, {useContext} from 'react';
+import React, {useContext, useEffect} from 'react';
 import Loading from '../../Components/loading';
 import {Box, Typography } from '@mui/material';
 // import InputField from '../../FormFields';
 import { FormContext } from '../CreateNewCharacter';
 import { SelectField } from '../../FormFields/SelectField';
 import CheckBoxField from '../../FormFields/CheckboxField';
-
+// construct screen switch to move back and forth
 // build labels and names for all proficiency choices
 const getProfienciesNumbers = (profChoices) => {
 
@@ -33,7 +33,7 @@ const getEquipmentOptions = (data) => {
     const items = data.map((obj) => console.log(obj));
     // console.log(items, 'items')
     // const options = data.map((item) => Object.values(item.from))
-      console.log(data, 'data eqe')
+      
       // return options;
   
   }
@@ -45,10 +45,7 @@ const filterSavingThrows = (proficiencies) => {
   return noSavesArray;
 }
 
-const constructNewStats = (hd) => {
-  const newStats = hd;
-  return newStats;
-}
+
 const AddClassDetails = ({formField, data}) => {
   const {
     index,
@@ -66,19 +63,32 @@ const AddClassDetails = ({formField, data}) => {
     spellcasting
   } = data || {};
   const {currentCharacter, setCurrentCharacter} = useContext(FormContext);
+  const inventory = [];
+  const constructNewStats = (array, statName) => {
+    // let newCharacter = {...currentCharacter};
+    for(let i = 0; i < array.lenght; i ++){
+      let newCharacter = {...currentCharacter, [statName[i]] : array[i]}
+      setCurrentCharacter(newCharacter);
+    }
+    console.log(currentCharacter)
+  }
   let noSaves = [];
-  let startingEqOptions = [];
-  let someEQ = [];
+  //useEffect
   if(proficiencies !== undefined){
     noSaves = filterSavingThrows(proficiencies);
-    startingEqOptions = getOptions(starting_equipment_options);
-    someEQ = Object.values(starting_equipment_options);
-    console.log(starting_equipment_options, ' 55')
-    console.log(starting_equipment_options[1].from, '56')
-    console.log(getEquipmentOptions(startingEqOptions), 'ln 77')
-    console.log(startingEqOptions, 'ln 29')
+    // constructNewStats(hit_die);
+    // console.log(proficiencies);
+    // console.log(spellcasting)
+    
     
   }
+  useEffect(() => {
+    if(hit_die !== undefined){
+      
+      constructNewStats([hit_die, saving_throws, spellcasting], ['hit_die', 'saving_throws', 'spellcasting'])
+    }
+  }, [data])
+  
   const parsedChoices = getOptions(proficiency_choices);
   
   return  data ? (
@@ -147,7 +157,7 @@ const AddClassDetails = ({formField, data}) => {
                   <CheckBoxField name={item} label={item.name} />
                 ))
                 : 
-                  <p>This is not an array</p>
+                  <p>This is not an array || display a component that contains api info</p>
                 }
               </Box>
             </Box>
@@ -156,6 +166,10 @@ const AddClassDetails = ({formField, data}) => {
           </Box>
         </Box>
       </Box>
+        <Box>
+          <p>Spellcasting</p>
+          <SpellInfo spellInfo={spellcasting}/>
+        </Box>
     </Box>
     
   ) : 
@@ -165,3 +179,25 @@ const AddClassDetails = ({formField, data}) => {
 }
 
 export default AddClassDetails;
+
+
+const SpellInfo = (props) => {
+  const {spellInfo} = props;
+ 
+  return ( 
+    <Box>
+      <p>Level: {spellInfo.level} Magical Deets</p>
+      <p>Spell casting Skill: {spellInfo.spellcasting_ability.name}</p>
+      <Box>
+        {spellInfo.info.map((skill) => (
+          <Box sx={{display: 'flex', flexDirection: 'column', justifyContent: 'flex-start'}}>
+            <p>{skill.name} :</p>
+            {skill.desc.map((desc) => (
+              <p>{desc}</p>
+            ))}
+          </Box>
+        ))}
+      </Box>
+    </Box>
+  );
+}
