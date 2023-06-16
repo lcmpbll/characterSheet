@@ -9,16 +9,52 @@ const LargeCharacterDetails = ({npc}) => {
     return <Loading/>
   }
   return (
-    <Box sx={{display: 'flex', flexDirection: 'column', flex: 11}}>
-      <Box sx={{flex: 11}}>
+    <Box sx={{display: 'flex', flexDirection: 'column', flex: 8}}>
+      <Box sx={{flex: 2}}>
         <CharacterHeader name={npc.name} type={npc.type} sub_type={npc.sub_type}/>
       </Box>
-      <Box sx={{display: 'flex', flexDirection: 'column', flex: 11}}>
-        <Box sx={{display: 'flex', flexDirection: 'column', flex: 3}}>
-          <ItemList skillsList={npc.ability_score} />
-        </Box>
-        <Box sx={{display: 'flex', flex: 2}}>
-          <SmallStatsBoxes speed={npc.speed} ac={npc.ac} initiative={npc.ability_score[2].plus}/>
+      <Box sx={{flex: 6, display: 'flex', flexDirection: 'column'}}>
+        <Box sx={{display: 'flex', flexDirection: 'row', flex: 8}}>
+          <Box sx={{display: 'flex', flexDirection: 'column', flex: 2}}>
+            <ItemList skillsList={npc.ability_score} />
+          </Box>
+          <Box sx={{display: 'flex', flex: 3, background: '	#C0C0C0', padding: '5px', borderRadius: '3%', flexDirection: 'column'}}>
+            <SmallStatsBoxes speed={npc.speed} ac={npc.ac} initiative={npc.ability_score[2].plus}/>
+            <Box sx={{display: 'flex', flexDirection: 'column', flex: 2}}>
+              <Box sx={{display: 'flex', flexDirection: 'row', border: '2px solid grey', height: '100px', width: '300px', justifyContent: 'space-evenly', padding: '3px'}}>
+                <Box>
+                  <p sx={{margin: '0px'}}>Max HP: </p>
+                  <p>{npc.hp}</p>
+                </Box>
+                <Box>
+                  <p sx={{margin: '0px'}}>Current HP:</p>
+                  <h3 sx={{margin: '0px'}}>{npc.hp}</h3>
+                </Box>
+              </Box>
+              <Box sx={{display: 'flex', flex: 2, flexDirection: 'row', border: '2px solid grey', height: '100px', width: '300px', justifyContent: 'space-evenly', padding: '3px'}}>
+                <Box sx={{border: '2px double grey', display: 'flex', flexDirection: 'column', flex: 1}}>
+                  <p>Total Hit Die: 7 D8</p>
+                  <p>Current Hit Die: 7</p>
+                </Box>
+                <Box sx={{border: '2px double grey', display: 'flex', flexDirection: 'column', flex: 1}}>
+                  <p>Success () () ()</p>
+                  <p>Failures () () ()</p>
+                  <p>Death Saves</p>
+                </Box>
+              </Box>
+              <Box>
+                <p> now</p>
+              </Box>
+            </Box>
+            
+          </Box>
+          <Box sx={{display: 'flex', flex: 3, background: '	#C0C0C0', padding: '2px', borderRadius: '20%'}}>
+            <SmallStatsBoxes speed={npc.speed} ac={npc.ac} initiative={npc.ability_score[2].plus}/>
+            <Box sx={{display: 'flex', flexDirection: 'column', flex: 2}}>
+              <Box></Box>
+            </Box>
+            
+          </Box>
         </Box>
       </Box>
     </Box>
