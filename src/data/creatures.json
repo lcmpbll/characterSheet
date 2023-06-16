@@ -1,0 +1,282 @@
+[
+  {
+    "name": "Silk",
+    "type": "Dragon",
+    "sub_type": "Paper Dragon",
+    "hp": 60,
+    "ac": 12,
+    "vunerability": ["Fire"],
+    "resistance": ["Piercing", "Bludgeoning", "Slashing"],
+    "immunities": ["Charm", "Sleep", "Paralysis", "Poison", "Blind", "Frighten"],
+    "advantage": "Saving throws against spells",
+    "speed": 60,
+    "ability_score": [
+      {
+        "name": "Strength",
+        "abreviation": "Str",
+        "amount": 14,
+        "plus": 2
+      },
+      {
+        "name": "Dexterity",
+        "abreviation": "Dex",
+        "amount": 16,
+        "plus": 3
+      },
+      {
+        "name": "Constitution",
+        "abreviation": "Con",
+        "amount": 12,
+        "plus": 1
+      },
+      {
+        "name": "Inteligence",
+        "abreviation": "INT",
+        "amount": 14,
+        "plus": 2
+      },
+      {
+        "name": "Wisdom",
+        "abreviation": "WIS",
+        "amount": 14,
+        "plus": 2
+      },
+      {
+        "name": "Charisma",
+        "abreviation": "CHA",
+        "amount": 18,
+        "plus": 4
+      }
+    ],
+    "abilities": {
+      "attack": [
+        {
+          "name": "Bite",
+          "plus_to_hit": 6,
+          "damage": {
+            "roll": 2,
+            "dice": 8,
+            "plus": 2
+          },
+          "damage_type": "Slashing"
+          
+        },
+        {
+          "name": "Wing Buffet",
+          "plus_to_hit": 0,
+          "damage": {
+            "aoe": {
+              "shape": "cone",
+              "area": 20
+            },
+            "effect": {
+              "desc": "push back 10ft",
+              "dc": {
+                "save": 14,
+                "type": "DEX",
+                "on_save": ["half damage", "no push back"]
+              }
+            },
+            "roll": 2,
+            "dice": 4,
+            "plus": 0
+          },
+          "damage_type": "Force"
+        }
+      ]
+    }
+  },
+  {
+    "name": "Gewitter",
+    "type": "Elemental",
+    "sub_type": "Air Elemental",
+    "desc": "An air elemental is a funneling cloud of whirling air with a vague semblance of a face. It can turn itself into a screaming cyclone, creating a whirlwind that batters creatures even as it flings them away.",
+    "size": "large",
+    "proficiency_bonus": 3,
+    "hp": 90,
+    "ac": 15,
+    "vunerability": [],
+    "resistance": ["Bludgeoning", "Piercing", "Slashing (Non Magical)", "Lightning", "Thunder"],
+    "immunities": [ "Poison", "Exhaustion", "Grapple", "Paralysis", "Petrification", "Prone", "Restriant", "Unconsciousiness"],
+    "advantage": null,
+    "speed": 90,
+    "ability_score": [
+      {
+        "name": "Strength",
+        "abreviation": "Str",
+        "amount": 14,
+        "plus": 2
+      },
+      {
+        "name": "Dexterity",
+        "abreviation": "Dex",
+        "amount": 20,
+        "plus": 5
+      },
+      {
+        "name": "Constitution",
+        "abreviation": "Con",
+        "amount": 14,
+        "plus": 2
+      },
+      {
+        "name": "Inteligence",
+        "abreviation": "INT",
+        "amount": 6,
+        "plus": -2
+      },
+      {
+        "name": "Wisdom",
+        "abreviation": "WIS",
+        "amount": 10,
+        "plus": 0
+      },
+      {
+        "name": "Charisma",
+        "abreviation": "CHA",
+        "amount": 6,
+        "plus": -2
+      }
+    ],
+    "abilities": {
+      "special_ability": [
+        {
+          "name": "Air Form",
+          "description": "The elemental can enter a hostile creature's space and stop there. It can move through a space as narrow as 1 inch wide without squeezing."
+        }, 
+        {
+          "name": "Multiattack",
+          "description": "The elemental makes two slam attacks"
+        }
+      ],
+      "attack": [
+        {
+          "name": "Slam",
+          "plus_to_hit": 8,
+          "damage": {
+            "roll": 2,
+            "dice": 8,
+            "plus": 5
+          },
+          "damage_type": "Bludgeoning"
+          
+        },
+        {
+          "name": "Whirl Wind",
+          "plus_to_hit": 0,
+          "damage": {
+            "aoe": {
+              "shape": " Each creature in the elemental's space",
+              "area": "?"
+            },
+            "effect": {
+              "desc": "Flung up 20 feet away from the elemental in a random direction and knocked prone. If a thrown target strikes an object, such as a wall or floor, the target takes 3 (1d6) bludgeoning damage for every 10 feet it was thrown. If the target is thrown at another creature, that creature must succeed on a DC 13 Dexterity saving throw or take the same damage and be knocked prone.",
+              "dc": {
+                "save": 13,
+                "type": "STR",
+                "on_save": ["half damage", "not knocked prone"]
+              }
+            },
+            "roll": 3,
+            "dice": 8,
+            "plus": 2
+          },
+          "damage_type": "Bludgeoning"
+        }
+      ]
+    }
+  },
+  {
+    "name": "Gizmodale",
+    "type": "Construct",
+    "sub_type": "Steel Defender",
+    "desc": "Gizmo Dale is a steel defender with 8 legs, made by Gallan O'Dale to be a trusty companion both inside and out of the laboratory. Gizmo Dale has the names of the heroes of engraved into the metal of thier body is the story of the three defenders, Aparicao and Tenezel.",
+    "size": "medium",
+    "proficiency_bonus": 3,
+    "hp": 41,
+    "ac": 15,
+    "vunerability": [],
+    "resistance": ["Bludgeoning", "Piercing", "Slashing (Non Magical)", "Lightning", "Thunder"],
+    "immunities": [ "Poison", "Charm", "Exhaustion"],
+    "advantage": null,
+    "speed": 40,
+    "saving_throws" : {
+      "DEX": 9,
+      "CON": 6
+    },
+    "skills": {
+      "atheletics": 5,
+      "perception": 6
+      
+    },
+    "ability_score": [
+      {
+        "name": "Strength",
+        "abreviation": "Str",
+        "amount": 14,
+        "plus": 2
+      },
+      {
+        "name": "Dexterity",
+        "abreviation": "Dex",
+        "amount": 12,
+        "plus": 1
+      },
+      {
+        "name": "Constitution",
+        "abreviation": "Con",
+        "amount": 14,
+        "plus": 2
+      },
+      {
+        "name": "Inteligence",
+        "abreviation": "INT",
+        "amount": 4,
+        "plus": -3
+      },
+      {
+        "name": "Wisdom",
+        "abreviation": "WIS",
+        "amount": 10,
+        "plus": 0
+      },
+      {
+        "name": "Charisma",
+        "abreviation": "CHA",
+        "amount": 6,
+        "plus": -2
+      }
+    ],
+    "abilities": {
+      "special_ability": [
+        {
+          "name": "Vigiliant",
+          "description": "The defender can't be surprised."
+        },
+        {
+          "name": "Repair",
+          "description": "he magical mechanisms inside the defender restore 2d8 + 3 (PB) hit points to itself or to one construct or object within 5 feet of it.",
+          "recharge": "3/Day"
+        }
+      ],
+      "attack": [
+        {
+          "name": "Force-Empowered Rend",
+          "plus_to_hit": 7,
+          "damage": {
+            "roll": 1,
+            "dice": 8,
+            "plus": 3
+          },
+          "damage_type": "Force"
+          
+        }
+      ],
+      "reaction": {
+        "name": "Deflect Attack",
+        "desc": "The defender imposes disadvantage on the attack roll of one creature it can see that is within 5 feet of it, provided the attack roll is against a creature other than the defender."
+      }
+      
+    }
+  }
+]
