@@ -6,7 +6,7 @@ const SmallDetailNPC = ({NPC}) => {
     return <Loading/>
   }
   const {name, sub_type} = NPC;
-  console.log(NPC, 'item');
+
   return (
     <>
       <p>Name: {name} SubType: {sub_type}</p>
