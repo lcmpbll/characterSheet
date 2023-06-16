@@ -2,8 +2,10 @@ import React from 'react';
 import { Box } from '@mui/material';
 import { SkillBadge } from './SkillBadge'
 
-export const ItemList = () => {
-  const skillsList = [
+
+ 
+export const ItemList = ({
+  skillsList =  [
     { 
      name: 'Strength',
      amount: 20,
@@ -35,6 +37,8 @@ export const ItemList = () => {
      plus: 0
     },
    ]
+}) => {
+  
    return (
     <>
       {skillsList.map((skill, index) => 
