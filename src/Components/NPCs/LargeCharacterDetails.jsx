@@ -43,7 +43,7 @@ const LargeCharacterDetails = ({npc}) => {
                 </Box>
               </Box>
               <Box>
-                <p> now</p>
+                <ActionsBox actions={npc.abilities}/>
               </Box>
             </Box>
             
@@ -63,7 +63,66 @@ const LargeCharacterDetails = ({npc}) => {
 
 export default LargeCharacterDetails
 
+const ActionsBox = ({actions}) => {
+  const attacks = actions?.attack;
 
+ 
+  return (
+    <Box sx={{display: 'flex', flexDirection: 'column'}}>
+      <h3>Attacks</h3>
+      {attacks.map((hit, index) => (
+        <AttackBox attackAction={hit} key={index}/>
+      ))}
+    </Box>
+  )
+}
+
+const calculateAttack = (dice, plus, roll) => {
+  return dice * roll + plus;
+}
+const AttackBox = (props) => {
+  const {attackAction} = props;
+  console.log(attackAction.damage, 'ln67');
+  
+  const damageEst = calculateAttack(attackAction.damage.dice, attackAction.damage.plus, attackAction.damage.roll);
+  const rollCriteria = attackAction.damage.roll + "  D" +  attackAction.damage.dice + " + " + attackAction.damage.plus; 
+  return (
+    <Box sx={{display: 'flex', flexDirection: 'column'}}>
+      <Box sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
+        <h3>{attackAction.name} - {attackAction.damage_type}</h3>
+        <p>Est Damage: {damageEst}</p>
+      </Box>
+      <Box sx={{display: 'flex', justifyContent: 'space-around', alignItems: 'center'}}>
+        <Box>
+        <h3>Plus to hit: </h3>
+        <h4>{attackAction.plus_to_hit}</h4>
+        </Box>
+        <Box>
+          <h3>Roll:</h3>
+          <h4>{rollCriteria}</h4>
+        </Box>
+      </Box>
+      <Box>
+        {attackAction.damage?.effect ?
+        <Box  sx={{ display: 'flex', flexWrap: 'wrap'}}>
+            <h3>Effect:</h3>
+          <Box sx={{display: 'flex', alignItems: 'baseline' }}> 
+            <Box sx={{display: 'flex', justifyContent: 'flex-start', flexDirection: 'column'}}>
+              <Box sx={{display: 'flex'}}>
+                <p> Description: {attackAction.damage.effect.desc}.</p> 
+                <p>{attackAction.damage.aoe.area} ft. {attackAction.damage.aoe.shape}</p>
+              </Box>
+              <Box sx={{display: 'flex', justifyContent: 'space-around'}}>
+                <p> {attackAction.damage.effect.dc.type} Save | {attackAction.damage.effect.dc.save} </p> 
+                <p> On Saving: {attackAction.damage.effect.dc.on_save.map((save) => (<p>{save}</p>))} </p>
+              </Box>
+            </Box>
+            </Box>
+          </Box> : null }
+      </Box>
+    </Box>
+  )
+}
 const SmallStatsBoxes = (props) => {
   const {speed, ac, initiative} = props;
   return (
