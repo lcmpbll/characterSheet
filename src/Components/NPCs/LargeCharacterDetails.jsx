@@ -2,6 +2,7 @@ import React from 'react';
 import Loading from '../loading';
 import { Box } from '@mui/material';
 import { ItemList } from '../Skills/SkillList';
+import { ProficienciesList } from '../Skills/Proficiencies';
 
 const LargeCharacterDetails = ({npc}) => {
   console.log(npc,'ln 6')
@@ -15,12 +16,17 @@ const LargeCharacterDetails = ({npc}) => {
       </Box>
       <Box sx={{flex: 6, display: 'flex', flexDirection: 'column'}}>
         <Box sx={{display: 'flex', flexDirection: 'row', flex: 8}}>
-          <Box sx={{display: 'flex', flexDirection: 'column', flex: 2}}>
-            <ItemList skillsList={npc.ability_score} />
+          <Box sx={{display: 'flex', flexDirection: 'row', flex: 3}}>
+            <Box sx={{display: 'flex', flexDirection: 'column'}}>
+              <ItemList skillsList={npc.ability_score} />
+            </Box>
+            <Box sx={{display: 'flex', flexDirection: 'column', overflow: 'hidden', height: '700px'}}>
+              <ProficienciesList profs={npc.proficiencies}/>  
+            </Box>
           </Box>
-          <Box sx={{display: 'flex', flex: 3, background: '	#C0C0C0', padding: '5px', borderRadius: '3%', flexDirection: 'column'}}>
+          <Box sx={{display: 'flex', flex: 3, background: '	#C0C0C0', padding: '5px', borderRadius: '3%', flexDirection: 'column', height: 'content'}}>
             <SmallStatsBoxes speed={npc.speed} ac={npc.ac} initiative={npc.ability_score[2].plus}/>
-            <Box sx={{display: 'flex', flexDirection: 'column', flex: 2}}>
+            <Box sx={{display: 'flex', flexDirection: 'column', flex: 4}}>
               <Box sx={{display: 'flex', flexDirection: 'row', border: '2px solid grey', height: '100px', width: '300px', justifyContent: 'space-evenly', padding: '3px'}}>
                 <Box>
                   <p sx={{margin: '0px'}}>Max HP: </p>
@@ -31,12 +37,12 @@ const LargeCharacterDetails = ({npc}) => {
                   <h3 sx={{margin: '0px'}}>{npc.hp}</h3>
                 </Box>
               </Box>
-              <Box sx={{display: 'flex', flex: 2, flexDirection: 'row', border: '2px solid grey', height: '100px', width: '300px', justifyContent: 'space-evenly', padding: '3px'}}>
-                <Box sx={{border: '2px double grey', display: 'flex', flexDirection: 'column', flex: 1}}>
+              <Box sx={{display: 'flex', flex: 2, flexDirection: 'row', padding: '3px'}}>
+                <Box sx={{border: '2px double grey', display: 'flex', flexDirection: 'column', flex: 1, height: '150px'}}>
                   <p>Total Hit Die: 7 D8</p>
                   <p>Current Hit Die: 7</p>
                 </Box>
-                <Box sx={{border: '2px double grey', display: 'flex', flexDirection: 'column', flex: 1}}>
+                <Box sx={{border: '2px double grey', display: 'flex', flexDirection: 'column', flex: 1, height: '150px'}}>
                   <p>Success () () ()</p>
                   <p>Failures () () ()</p>
                   <p>Death Saves</p>
@@ -45,6 +51,7 @@ const LargeCharacterDetails = ({npc}) => {
               <Box>
                 <ActionsBox actions={npc.abilities}/>
               </Box>
+  
             </Box>
             
           </Box>
@@ -82,7 +89,7 @@ const calculateAttack = (dice, plus, roll) => {
 }
 const AttackBox = (props) => {
   const {attackAction} = props;
-  console.log(attackAction.damage, 'ln67');
+
   
   const damageEst = calculateAttack(attackAction.damage.dice, attackAction.damage.plus, attackAction.damage.roll);
   const rollCriteria = attackAction.damage.roll + "  D" +  attackAction.damage.dice + " + " + attackAction.damage.plus; 
