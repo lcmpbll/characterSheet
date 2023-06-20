@@ -3,6 +3,7 @@ import Loading from '../loading';
 import { Box } from '@mui/material';
 import { ItemList } from '../Skills/SkillList';
 import { ProficienciesList } from '../Skills/Proficiencies';
+import { SavingThrows } from '../Skills/Proficiencies';
 
 const LargeCharacterDetails = ({npc}) => {
   console.log(npc,'ln 6')
@@ -12,7 +13,7 @@ const LargeCharacterDetails = ({npc}) => {
   return (
     <Box sx={{display: 'flex', flexDirection: 'column', flex: 8}}>
       <Box sx={{flex: 2}}>
-        <CharacterHeader name={npc.name} type={npc.type} sub_type={npc.sub_type}/>
+        <CharacterHeader name={npc.name} type={npc.type} sub_type={npc.sub_type} desc={npc.desc}/>
       </Box>
       <Box sx={{flex: 6, display: 'flex', flexDirection: 'column'}}>
         <Box sx={{display: 'flex', flexDirection: 'row', flex: 8}}>
@@ -20,7 +21,16 @@ const LargeCharacterDetails = ({npc}) => {
             <Box sx={{display: 'flex', flexDirection: 'column'}}>
               <ItemList skillsList={npc.ability_score} />
             </Box>
-            <Box sx={{display: 'flex', flexDirection: 'column', overflow: 'hidden', height: '700px'}}>
+            <Box sx={{display: 'flex', flexDirection: 'column', overflow: 'hidden', height: 'content'}}>
+              <Box sx={{ display: 'flex', alignItems: 'center', border: '2px solid black'}}>
+                <Box sx={{ border: '3px solid grey', borderRadius: '50%', display: 'flex', justifyContent: 'center', width: '30%', height: '60%', alignItems: 'center'}}>
+                  <p>{npc.proficiency_bonus}</p>
+                </Box>
+                <Box sx={{ border: '1px solid grey', borderRadius: '8px', display: 'flex', justifyContent: 'flex-end', height: '80%', width: '60%'}}>
+                  <p style={{fontSize: '8px'}}>Proficiency Bonus</p>
+                </Box>
+              </Box>
+              <SavingThrows saves={npc.saving_throws} pb={npc.proficiency_bonus}/>
               <ProficienciesList profs={npc.proficiencies}/>  
             </Box>
           </Box>
@@ -37,7 +47,7 @@ const LargeCharacterDetails = ({npc}) => {
                   <h3 sx={{margin: '0px'}}>{npc.hp}</h3>
                 </Box>
               </Box>
-              <Box sx={{display: 'flex', flex: 2, flexDirection: 'row', padding: '3px'}}>
+              <Box sx={{display: 'flex', flexDirection: 'row', padding: '3px'}}>
                 <Box sx={{border: '2px double grey', display: 'flex', flexDirection: 'column', flex: 1, height: '150px'}}>
                   <p>Total Hit Die: 7 D8</p>
                   <p>Current Hit Die: 7</p>
@@ -151,21 +161,26 @@ const SmallStatsBoxes = (props) => {
 }
 
 const CharacterHeader = (props) => {
-  const {name, type, sub_type} = props;
+  const {name, type, sub_type, desc} = props;
   return (
     <Box sx={{display: 'flex', flexDirection:'row', justifyContent: 'space-between',flex: 5, border: '3px solid black', width: '100%', padding: '1rem'}}>
-      <Box sx={{display: 'flex', flex: 2, flexDirection: 'column', border: '4px solid grey'}}>
+      <Box sx={{display: 'flex', flex: 1, flexDirection: 'column', border: '4px solid grey'}}>
         <h1>{name}</h1>
         <h4>Character Name</h4>
       </Box>
-      <Box sx={{flex: 3}}>
-        <Box sx={{display: 'flex', justifyContent: 'flex-start', alignItems: 'center', paddingLeft: '1rem'}}>
+      <Box sx={{flex: 1}}>
+        <Box sx={{display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', paddingLeft: '1rem', alignItems: 'flex-start'}}>
          <h3>Type: </h3><p> {type}</p>
         </Box>
-        <Box sx={{display: 'flex', justifyContent: 'flex-start', alignItems: 'center', paddingLeft: '1rem'}}>
+        <Box sx={{display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', paddingLeft: '1rem', alignItems: 'flex-start'}}>
           <h3>Sub Type: </h3>
           <p> {sub_type}</p>
         </Box>
+    
+        
+      </Box>
+      <Box sx={{display: 'flex', width: '300px', alignItems: 'center', justifyContent: 'flex-start'}}>
+        <p>{desc}</p>
       </Box>
     </Box>
   )
