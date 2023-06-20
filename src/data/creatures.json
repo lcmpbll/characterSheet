@@ -10,6 +10,9 @@
     "immunities": ["Charm", "Sleep", "Paralysis", "Poison", "Blind", "Frighten"],
     "advantage": "Saving throws against spells",
     "speed": 60,
+    "proficiencies": {
+      
+    },
     "ability_score": [
       {
         "name": "Strength",
@@ -100,6 +103,11 @@
     "immunities": [ "Poison", "Exhaustion", "Grapple", "Paralysis", "Petrification", "Prone", "Restriant", "Unconsciousiness"],
     "advantage": null,
     "speed": 90,
+    "proficiencies": 
+      {
+       
+      }
+    ,
     "ability_score": [
       {
         "name": "Strength",
@@ -204,9 +212,9 @@
       "DEX": 9,
       "CON": 6
     },
-    "skills": {
-      "atheletics": 5,
-      "perception": 6
+    "proficiencies": {
+      "Ath": 5,
+      "Perc": 6
       
     },
     "ability_score": [
