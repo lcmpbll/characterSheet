@@ -6,6 +6,7 @@ export const ProficienciesList = ({profs = {
   Inv: 1,
   Nat: 4,
 }}) => {
+
   const profieciencies = [
     { 
       name: 'Acrobatics',
@@ -100,15 +101,15 @@ export const ProficienciesList = ({profs = {
   ]
   
   return (
-    <>
+    <div style={{border: '1px double black', padding: '3px'}}>
       {profieciencies.map((prof, index) => {
         return(
-          <div style={{display: 'flex', flexDirection: 'row',}} key={index}>
-            <p style={{marginRight: '3px', borderBottom: '2px solid black', size: '20px', width: '2rem'}}>{profs[prof.ref] ? profs[prof.ref] : null}</p>
-            <p>{prof.name} ({prof.skill})</p>
+          <div style={{display: 'flex', flexDirection: 'row', }} key={index}>
+            <p style={{marginRight: '3px', borderBottom: '2px solid black', fontSize: '10px', width: '2rem'}}>{profs[prof.ref] ? profs[prof.ref] : null}</p>
+            <p style={{fontSize: '8px'}}>{prof.name} ({prof.skill})</p>
           </div>
         )
       })}
-    </>
+    </div>
   )
 }
