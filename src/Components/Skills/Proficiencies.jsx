@@ -101,7 +101,7 @@ export const ProficienciesList = ({profs = {
   ]
   
   return (
-    <div style={{border: '1px double black', padding: '3px'}}>
+    <div style={{border: '3px double black', padding: '3px', borderRadius: '3px'}}>
       {profieciencies.map((prof, index) => {
         return(
           <div style={{display: 'flex', flexDirection: 'row', }} key={index}>
@@ -112,4 +112,48 @@ export const ProficienciesList = ({profs = {
       })}
     </div>
   )
+}
+
+
+export const SavingThrows = ({saves = {}, pb}) => {
+  const throws = [
+    {
+      name: 'Strength',
+      ref: 'STR'
+    },
+    {
+      name: 'Dexterity',
+      ref: 'DEX'
+    },
+    {
+      name: 'Constitution',
+      ref: 'CON'
+    },
+    {
+      name: 'Intelegence',
+      ref: 'INT'
+    },
+    {
+      name: 'Wisdom',
+      ref: 'WIS'
+    },
+    {
+      name: 'Charisma',
+      ref: 'CHA'
+    }
+  ]
+  return (
+    <div style={{border: '1px double black', padding: '3px', borderRadius: '10px'}}>
+      {throws.map((save, index) => {
+        return (
+          <div style={{display: 'flex', flexDirection: 'row', }} key={index}>
+            <p style={{marginRight: '3px', borderBottom: '2px solid black', fontSize: '10px', width: '2rem'}}>{saves[save.ref] ? saves[save.ref] + pb : null}</p>
+            <p style={{fontSize: '8px'}}>{save.name}</p>
+          </div>
+      )
+      })}
+      <p style={{fontSize: '8px'}}>Saving Throws</p>
+    </div>
+    
+  );
 }
