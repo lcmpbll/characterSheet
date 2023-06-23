@@ -11,13 +11,13 @@ const LargeCharacterDetails = ({npc}) => {
     return <Loading/>
   }
   return (
-    <Box sx={{display: 'flex', flexDirection: 'column', flex: 8}}>
+    <Box sx={{display: 'flex', flexDirection: 'column', flex: 6}}>
       <Box sx={{flex: 2}}>
         <CharacterHeader name={npc.name} type={npc.type} sub_type={npc.sub_type} desc={npc.desc}/>
       </Box>
       <Box sx={{flex: 6, display: 'flex', flexDirection: 'column'}}>
         <Box sx={{display: 'flex', flexDirection: 'row', flex: 8}}>
-          <Box sx={{display: 'flex', flexDirection: 'row', flex: 3}}>
+          <Box sx={{display: 'flex', flexDirection: 'row', flex: 2}}>
             <Box sx={{display: 'flex', flexDirection: 'column'}}>
               <ItemList skillsList={npc.ability_score} />
             </Box>
@@ -34,7 +34,7 @@ const LargeCharacterDetails = ({npc}) => {
               <ProficienciesList profs={npc.proficiencies}/>  
             </Box>
           </Box>
-          <Box sx={{display: 'flex', flex: 3, background: '	#C0C0C0', padding: '5px', borderRadius: '3%', flexDirection: 'column', height: 'content'}}>
+          <Box sx={{display: 'flex', flex: 2, background: '	#C0C0C0', padding: '5px', borderRadius: '3%', flexDirection: 'column', height: 'content'}}>
             <SmallStatsBoxes speed={npc.speed} ac={npc.ac} initiative={npc.ability_score[2].plus}/>
             <Box sx={{display: 'flex', flexDirection: 'column', flex: 4}}>
               <Box sx={{display: 'flex', flexDirection: 'row', border: '2px solid grey', height: '100px', width: '300px', justifyContent: 'space-evenly', padding: '3px'}}>
@@ -65,10 +65,12 @@ const LargeCharacterDetails = ({npc}) => {
             </Box>
             
           </Box>
-          <Box sx={{display: 'flex', flex: 3, background: '	#C0C0C0', padding: '2px', borderRadius: '20%'}}>
-            <SmallStatsBoxes speed={npc.speed} ac={npc.ac} initiative={npc.ability_score[2].plus}/>
-            <Box sx={{display: 'flex', flexDirection: 'column', flex: 2}}>
-              <Box></Box>
+          <Box sx={{display: 'flex', flexDirection: 'column', padding: '2px', borderRadius: '20%'}}>
+            <Box sx={{display: 'flex', flexDirection: 'column'}}>
+              <DamageMods immunities={npc.immunities} resistances={npc.resistance} vunerabilities={npc.vunerability} />
+            </Box>
+            <Box>
+            <OtherAbilities ability={npc.abilities?.special_ability} />
             </Box>
             
           </Box>
@@ -78,8 +80,58 @@ const LargeCharacterDetails = ({npc}) => {
   )
 }
 
+
 export default LargeCharacterDetails
 
+
+const OtherAbilities = ({ability}) => {
+
+  
+  return (
+    <Box>
+      {ability.map((action, index) => {
+        return (
+          <Box key={index} sx={{display: 'flex', justifyContent: 'flex-start'}}>
+            <p>{action.name}</p>
+            <p>{action.description}</p>
+          </Box>
+        )
+      })}
+    </Box>
+  )
+}
+
+const DamageMods = ({immunities, resistances, vunerabilities}) => {
+  
+  return(
+    <Box >
+      <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+        <p sx={{fontSize: '14px', margin: 0}}>Immunities: </p>
+        <Box sx={{fontSize: '12px', display: 'flex', justifyContent: 'space-evenly', flexWrap: 'wrap'}}>
+          {immunities.map((res, index) => {return (
+            <p sx={{margin: '3px'}} key={index} > {res} </p>
+          )})}
+        </Box>
+      </Box>
+      <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+        <p sx={{fontSize: '14px', margin: 0}}>Resistances: </p>
+        <Box sx={{fontSize: '12px', display: 'flex', justifyContent: 'space-evenly', flexWrap: 'wrap'}}>
+          {resistances.map((res, index) => {return (
+            <p sx={{margin: '3px'}} key={index}> {res} </p>
+          )})}
+        </Box>
+      </Box>
+      <Box  sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+        <p sx={{fontSize: '14px', margin: 0}}>Vunerabilities: </p>
+        <Box sx={{fontSize: '12px', display: 'flex', justifyContent: 'space-evenly', flexWrap: 'wrap'}}>
+          {vunerabilities.map((res, index) => {return (
+            <p sx={{margin: '1px'}} key={index}> {res} </p>
+          )})}
+        </Box>
+      </Box>
+    </Box>
+  )
+}
 const ActionsBox = ({actions}) => {
   const attacks = actions?.attack;
 
