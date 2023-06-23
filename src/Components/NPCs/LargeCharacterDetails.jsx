@@ -70,7 +70,14 @@ const LargeCharacterDetails = ({npc}) => {
               <DamageMods immunities={npc.immunities} resistances={npc.resistance} vunerabilities={npc.vunerability} />
             </Box>
             <Box>
-            <OtherAbilities ability={npc.abilities?.special_ability} />
+              {npc.abilities?.special_ability ? 
+                <OtherAbilities ability={npc.abilities?.special_ability} /> :
+              null }
+            </Box>
+            <Box>
+              {npc.abilities?.reaction ? 
+                <OtherAbilities ability={npc.abilities?.reaction} /> :
+              null }
             </Box>
             
           </Box>
