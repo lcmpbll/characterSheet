@@ -87,7 +87,8 @@
           "damage_type": "Force"
         }
       ]
-    }
+    },
+    "notes": []
   },
   {
     "name": "Gewitter",
@@ -192,7 +193,8 @@
           "damage_type": "Bludgeoning"
         }
       ]
-    }
+    },
+    "notes": []
   },
   {
     "name": "Gizmodale",
@@ -209,8 +211,8 @@
     "advantage": null,
     "speed": 40,
     "saving_throws" : {
-      "DEX": 9,
-      "CON": 6
+      "DEX": 1,
+      "CON": 2
     },
     "proficiencies": {
       "Ath": 5,
@@ -285,6 +287,8 @@
         "desc": "The defender imposes disadvantage on the attack roll of one creature it can see that is within 5 feet of it, provided the attack roll is against a creature other than the defender."
       }
       
-    }
+      
+    },
+    "notes": []
   }
 ]
