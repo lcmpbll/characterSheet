@@ -3,6 +3,7 @@
     "name": "Silk",
     "type": "Dragon",
     "sub_type": "Paper Dragon",
+    "desc": "",
     "hp": 60,
     "ac": 12,
     "vunerability": ["Fire"],
