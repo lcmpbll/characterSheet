@@ -282,10 +282,12 @@
           
         }
       ],
-      "reaction": {
-        "name": "Deflect Attack",
-        "desc": "The defender imposes disadvantage on the attack roll of one creature it can see that is within 5 feet of it, provided the attack roll is against a creature other than the defender."
-      }
+      "reaction": [
+        {
+          "name": "Deflect Attack",
+          "description": "The defender imposes disadvantage on the attack roll of one creature it can see that is within 5 feet of it, provided the attack roll is against a creature other than the defender."
+        }
+      ]
       
       
     },
