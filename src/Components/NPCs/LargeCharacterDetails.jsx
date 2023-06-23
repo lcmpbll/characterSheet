@@ -11,7 +11,7 @@ const LargeCharacterDetails = ({npc}) => {
     return <Loading/>
   }
   return (
-    <Box sx={{display: 'flex', flexDirection: 'column', flex: 6}}>
+    <Box sx={{display: 'flex', flexDirection: 'column', flex: 6, border: '3px solid black', padding: '1rem', maxWidth: '800px', maxHeight: '1150px'}}>
       <Box sx={{flex: 2}}>
         <CharacterHeader name={npc.name} type={npc.type} sub_type={npc.sub_type} desc={npc.desc}/>
       </Box>
@@ -116,7 +116,7 @@ const DamageMods = ({immunities, resistances, vunerabilities}) => {
         <p sx={{fontSize: '14px', margin: 0}}>Immunities: </p>
         <Box sx={{fontSize: '12px', display: 'flex', justifyContent: 'space-evenly', flexWrap: 'wrap'}}>
           {immunities.map((res, index) => {return (
-            <p sx={{margin: '3px'}} key={index} > {res} </p>
+            <p sx={{margin: '3px'}} key={index} > {res} &nbsp;</p>
           )})}
         </Box>
       </Box>
@@ -124,7 +124,7 @@ const DamageMods = ({immunities, resistances, vunerabilities}) => {
         <p sx={{fontSize: '14px', margin: 0}}>Resistances: </p>
         <Box sx={{fontSize: '12px', display: 'flex', justifyContent: 'space-evenly', flexWrap: 'wrap'}}>
           {resistances.map((res, index) => {return (
-            <p sx={{margin: '3px'}} key={index}> {res} </p>
+            <p sx={{margin: '3px'}} key={index}> {res} &nbsp;</p>
           )})}
         </Box>
       </Box>
@@ -132,7 +132,7 @@ const DamageMods = ({immunities, resistances, vunerabilities}) => {
         <p sx={{fontSize: '14px', margin: 0}}>Vunerabilities: </p>
         <Box sx={{fontSize: '12px', display: 'flex', justifyContent: 'space-evenly', flexWrap: 'wrap'}}>
           {vunerabilities.map((res, index) => {return (
-            <p sx={{margin: '1px'}} key={index}> {res} </p>
+            <p sx={{margin: '1px'}} key={index}> {res} &nbsp;</p>
           )})}
         </Box>
       </Box>
@@ -222,7 +222,7 @@ const SmallStatsBoxes = (props) => {
 const CharacterHeader = (props) => {
   const {name, type, sub_type, desc} = props;
   return (
-    <Box sx={{display: 'flex', flexDirection:'row', justifyContent: 'space-between',flex: 5, border: '3px solid black', width: '100%', padding: '1rem'}}>
+    <Box sx={{display: 'flex', flexDirection:'row', justifyContent: 'space-between',flex: 5, width: '100%', padding: '1rem'}}>
       <Box sx={{display: 'flex', flex: 1, flexDirection: 'column', border: '4px solid grey'}}>
         <h1>{name}</h1>
         <h4>Character Name</h4>
