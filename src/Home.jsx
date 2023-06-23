@@ -1,5 +1,6 @@
 import Loading from './Components/loading';
 import {Box} from '@mui/material';
+import { ProficienciesList } from './Components/Skills/Proficiencies';
 
 import { ItemList } from './Components/Skills/SkillList'
 const Home = () => {
@@ -14,8 +15,7 @@ const Home = () => {
 
       <Box>
       <Loading/>
-      <ItemList/>
-      
+    
       </Box>
     </Box>
   );
