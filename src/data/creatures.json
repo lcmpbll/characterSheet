@@ -9,7 +9,7 @@
     "vunerability": ["Fire"],
     "resistance": ["Piercing", "Bludgeoning", "Slashing"],
     "immunities": ["Charm", "Sleep", "Paralysis", "Poison", "Blind", "Frighten"],
-    "advantage": "Saving throws against spells",
+    "advantage": ["Saving throws against spells"],
     "speed": 60,
     "proficiencies": {
       
