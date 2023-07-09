@@ -6,7 +6,8 @@ import { Box, Typography } from "@mui/material";
 import { CreateNewCharacterPage } from './CharacterCreation/CreateNewCharacter';
 import Menu from "./Menu";
 import Home from "./Home";
-import NPC from "./Components/NPCs";
+import { NPC } from "./Components/NPCs";
+import Items from "./Components/Items";
 
 export default function App() {
   const [characterList, setCharacterList] = useState([]);
@@ -43,6 +44,13 @@ export default function App() {
           path="/npc"
           element={
             <NPC />
+          }
+        />
+          <Route
+          exact
+          path="/items"
+          element={
+            <Items />
           }
         />
         <Route exact path="/" element={<Home />} />
