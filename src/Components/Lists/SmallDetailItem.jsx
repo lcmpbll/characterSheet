@@ -2,11 +2,11 @@ import React from 'react'
 import Loading from '../loading';
 import { Box } from '@mui/material';
 
-const SmallDetailNPC = ({NPC}) => {
-  if(!NPC){
+const SmallDetailItem = ({Item}) => {
+  if(!Item){
     return <Loading/>
   }
-  const {name, sub_type} = NPC;
+  const {name, sub_type} = Item;
 
   return (
     <Box sx={{display: 'flex', alignItems: 'flex-start'}}>
@@ -15,4 +15,4 @@ const SmallDetailNPC = ({NPC}) => {
   )
 }
 
-export default SmallDetailNPC;
+export default SmallDetailItem;
