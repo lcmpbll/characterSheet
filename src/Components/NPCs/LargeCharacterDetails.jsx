@@ -6,7 +6,7 @@ import { ProficienciesList } from '../Skills/Proficiencies';
 import { SavingThrows } from '../Skills/Proficiencies';
 
 const LargeCharacterDetails = ({npc}) => {
-  console.log(npc,'ln 6')
+  
   if (!npc){
     return <Loading/>
   }
@@ -67,7 +67,7 @@ const LargeCharacterDetails = ({npc}) => {
           </Box>
           <Box sx={{display: 'flex', flexDirection: 'column', padding: '2px', borderRadius: '20%'}}>
             <Box sx={{display: 'flex', flexDirection: 'column'}}>
-              <DamageMods immunities={npc.immunities} resistances={npc.resistance} vunerabilities={npc.vunerability} />
+              <DamageMods immunities={npc.immunities} resistances={npc.resistance} vunerabilities={npc.vunerability} advantages={npc.advantage}/>
             </Box>
             <Box>
               {npc.abilities?.special_ability ? 
@@ -108,7 +108,7 @@ const OtherAbilities = ({ability}) => {
   )
 }
 
-const DamageMods = ({immunities, resistances, vunerabilities}) => {
+const DamageMods = ({immunities, resistances, vunerabilities, advantages}) => {
   
   return(
     <Box >
@@ -132,6 +132,14 @@ const DamageMods = ({immunities, resistances, vunerabilities}) => {
         <p sx={{fontSize: '14px', margin: 0}}>Vunerabilities: </p>
         <Box sx={{fontSize: '12px', display: 'flex', justifyContent: 'space-evenly', flexWrap: 'wrap'}}>
           {vunerabilities.map((res, index) => {return (
+            <p sx={{margin: '1px'}} key={index}> {res} &nbsp;</p>
+          )})}
+        </Box>
+      </Box>
+      <Box  sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+        <p sx={{fontSize: '14px', margin: 0}}>Advantage: </p>
+        <Box sx={{fontSize: '12px', display: 'flex', justifyContent: 'space-evenly', flexWrap: 'wrap'}}>
+          {advantages.map((res, index) => {return (
             <p sx={{margin: '1px'}} key={index}> {res} &nbsp;</p>
           )})}
         </Box>
