@@ -10,6 +10,7 @@
     "resistance": ["Piercing", "Bludgeoning", "Slashing"],
     "immunities": ["Charm", "Sleep", "Paralysis", "Poison", "Blind", "Frighten"],
     "advantage": ["Saving throws against spells"],
+    "inventry": [],
     "speed": 60,
     "proficiencies": {
       
@@ -104,6 +105,7 @@
     "resistance": ["Bludgeoning", "Piercing", "Slashing (Non Magical)", "Lightning", "Thunder"],
     "immunities": [ "Poison", "Exhaustion", "Grapple", "Paralysis", "Petrification", "Prone", "Restriant", "Unconsciousiness"],
     "advantage": [],
+    "inventry": [],
     "speed": 90,
     "proficiencies": 
       {
@@ -210,6 +212,7 @@
     "resistance": ["Bludgeoning", "Piercing", "Slashing (Non Magical)", "Lightning", "Thunder"],
     "immunities": [ "Poison", "Charm", "Exhaustion"],
     "advantage": [],
+    "inventry": [],
     "speed": 40,
     "saving_throws" : {
       "DEX": 1,
