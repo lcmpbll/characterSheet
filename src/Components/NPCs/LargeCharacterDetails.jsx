@@ -13,7 +13,7 @@ export const LargeCharacterDetails = ({npc}) => {
   return (
     <Box sx={{display: 'flex', flexDirection: 'column', flex: 6, border: '3px solid black', padding: '1rem', maxWidth: '800px', maxHeight: '1150px'}}>
       <Box sx={{flex: 2}}>
-        <CharacterHeader name={npc.name} type={npc.type} sub_type={npc.sub_type} desc={npc.desc}/>
+        <DetailsHeader name={npc.name} type={npc.type} sub_type={npc.sub_type} desc={npc.desc} resource={"Character"}/>
       </Box>
       <Box sx={{flex: 6, display: 'flex', flexDirection: 'column'}}>
         <Box sx={{display: 'flex', flexDirection: 'row', flex: 8}}>
@@ -91,7 +91,7 @@ export const LargeCharacterDetails = ({npc}) => {
 
 
 
-const OtherAbilities = ({ability}) => {
+export const OtherAbilities = ({ability}) => {
 
   
   return (
@@ -99,8 +99,8 @@ const OtherAbilities = ({ability}) => {
       {ability.map((action, index) => {
         return (
           <Box key={index} sx={{display: 'flex', justifyContent: 'flex-start'}}>
-            <p>{action.name}</p>
-            <p>{action.description}</p>
+            <p>{action.name} - </p>
+            <p> {action.description}</p>
           </Box>
         )
       })}
@@ -147,7 +147,8 @@ const DamageMods = ({immunities, resistances, vunerabilities, advantages}) => {
     </Box>
   )
 }
-const ActionsBox = ({actions}) => {
+
+export const ActionsBox = ({actions}) => {
   const attacks = actions?.attack;
 
  
@@ -179,7 +180,8 @@ const AttackBox = (props) => {
       <Box sx={{display: 'flex', justifyContent: 'space-around', alignItems: 'center'}}>
         <Box>
         <h3>Plus to hit: </h3>
-        <h4>{attackAction.plus_to_hit}</h4>
+        <h4>{attackAction.plus_to_hit}</h4> 
+        
         </Box>
         <Box>
           <h3>Roll:</h3>
@@ -189,16 +191,19 @@ const AttackBox = (props) => {
       <Box>
         {attackAction.damage?.effect ?
         <Box  sx={{ display: 'flex', flexWrap: 'wrap'}}>
-            <h3>Effect:</h3>
-          <Box sx={{display: 'flex', alignItems: 'baseline' }}> 
+            <h3>Effect: </h3> &nbsp;
+          <Box sx={{display: 'flex', alignItems: 'center' }}> 
             <Box sx={{display: 'flex', justifyContent: 'flex-start', flexDirection: 'column'}}>
               <Box sx={{display: 'flex'}}>
-                <p> Description: {attackAction.damage.effect.desc}.</p> 
-                <p>{attackAction.damage.aoe.area} ft. {attackAction.damage.aoe.shape}</p>
+                <p> Description: {attackAction.damage.effect.desc}</p> 
+                {attackAction.damage?.aoe ? (
+                  <p>{attackAction.damage?.aoe?.area} ft. {attackAction.damage?.aoe?.shape}</p> 
+                  ) : null
+                } 
               </Box>
               {attackAction.damage.effect.dc ?
               <Box sx={{display: 'flex', justifyContent: 'space-around'}}>
-                <p> {attackAction.damage.effect.dc.type} Save | {attackAction.damage.effect.dc.save} </p> 
+                <p> {attackAction.damage.effect?.dc.type} Save | {attackAction.damage.effect?.dc.save} </p> 
                 <p> On Saving: {attackAction.damage.effect.dc.on_save.map((save) => (<p>{save}</p>))} </p>
               </Box>
               : null}
@@ -229,13 +234,13 @@ const SmallStatsBoxes = (props) => {
   )
 }
 
-const CharacterHeader = (props) => {
-  const {name, type, sub_type, desc} = props;
+export const DetailsHeader = (props) => {
+  const {name, type, sub_type, desc, resource} = props;
   return (
     <Box sx={{display: 'flex', flexDirection:'row', justifyContent: 'space-between',flex: 5, width: '100%', padding: '1rem'}}>
-      <Box sx={{display: 'flex', flex: 1, flexDirection: 'column', border: '4px solid grey'}}>
+      <Box sx={{display: 'flex', flex: 1, flexDirection: 'column', border: '4px solid grey', maxHeight: '200px'}}>
         <h1>{name}</h1>
-        <h4>Character Name</h4>
+        <h4>{resource} Name</h4>
       </Box>
       <Box sx={{flex: 1}}>
         <Box sx={{display: 'flex', flexDirection: 'column', justifyContent: 'flex-start', alignItems: 'center', paddingLeft: '1rem', alignItems: 'flex-start'}}>
