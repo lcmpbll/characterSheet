@@ -5,7 +5,7 @@ import { ItemList } from '../Skills/SkillList';
 import { ProficienciesList } from '../Skills/Proficiencies';
 import { SavingThrows } from '../Skills/Proficiencies';
 
-const LargeCharacterDetails = ({npc}) => {
+export const LargeCharacterDetails = ({npc}) => {
   
   if (!npc){
     return <Loading/>
@@ -88,7 +88,7 @@ const LargeCharacterDetails = ({npc}) => {
 }
 
 
-export default LargeCharacterDetails
+
 
 
 const OtherAbilities = ({ability}) => {
@@ -196,13 +196,15 @@ const AttackBox = (props) => {
                 <p> Description: {attackAction.damage.effect.desc}.</p> 
                 <p>{attackAction.damage.aoe.area} ft. {attackAction.damage.aoe.shape}</p>
               </Box>
+              {attackAction.damage.effect.dc ?
               <Box sx={{display: 'flex', justifyContent: 'space-around'}}>
                 <p> {attackAction.damage.effect.dc.type} Save | {attackAction.damage.effect.dc.save} </p> 
                 <p> On Saving: {attackAction.damage.effect.dc.on_save.map((save) => (<p>{save}</p>))} </p>
               </Box>
+              : null}
             </Box>
-            </Box>
-          </Box> : null }
+          </Box>
+        </Box> : null }
       </Box>
     </Box>
   )
