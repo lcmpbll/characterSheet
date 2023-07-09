@@ -7,7 +7,7 @@
     "attunement": true,
     
     "abilities": {
-      "special_abilities": [
+      "special_ability": [
         {
           "name": "Feather Fall",
           "description": "Cast feather fall once perday on the bearer, crit on 18-20 while feather fall is active."
@@ -20,9 +20,11 @@
             "roll": 1,
             "dice": 8,
             "plus": 0,
-            "ability": "FIN"
+            "ability": "FIN",
+            "effect": {
+              "desc": "Additional 1D8 damage against abberations."
+            }
           },
-          "effect": "Additional 1D8 damage against abberations.",
           "damage_type": "Piercing"
         }
       ]
@@ -36,7 +38,7 @@
     "description": "Arcane dagger with a blade made of magical ice which once belonged to the wizard Logan Swale, who helped build the palace of Qurnat as Swada. A vicious cut throat in his yourh he went to great lenghts in his twilight years to 'Build life up instead of cut it down.'",
     "attunement": true,
     "abilities": {
-      "special_abilities": [
+      "special_ability": [
         {
           "name": "Shape Water",
           "description": "Can be thrown at water to emulate cantrip Shape Water."
