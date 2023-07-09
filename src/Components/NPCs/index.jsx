@@ -11,7 +11,7 @@ import { SplitScreen } from '../Divisions/SplitScreen';
 
 export const NPC  = () => {
   const [selectedCharacter, setSelectedCharacter] = useState(creatureList[0]);
-  console.log('who0op')
+
   return (
     <SplitScreen
       leftWeight={1}
