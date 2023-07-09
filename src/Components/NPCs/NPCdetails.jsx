@@ -1,5 +1,6 @@
 import React from 'react'
 import Loading from '../loading';
+import { Box } from '@mui/material';
 
 const SmallDetailNPC = ({NPC}) => {
   if(!NPC){
@@ -8,9 +9,9 @@ const SmallDetailNPC = ({NPC}) => {
   const {name, sub_type} = NPC;
 
   return (
-    <>
-      <p>Name: {name} SubType: {sub_type}</p>
-    </>
+    <Box sx={{display: 'flex', alignItems: 'flex-start'}}>
+      <p>{name} - {sub_type}</p>
+    </Box>
   )
 }
 
