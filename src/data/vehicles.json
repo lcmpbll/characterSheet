@@ -1,0 +1,106 @@
+[
+  {
+    "name": "The Shrike",
+    "type": "Vehicle",
+    "sub_type": "Air Ship",
+    "hp": 250,
+    "ac": 15,
+    "speed": 70,
+    "vunerability": ["Fire"],
+    "resistance": [],
+    "immunities": [],
+    "advantage": [],
+    "inventry": [],
+    "abilities": {
+      "special_abilitiy": [
+        {
+          "name": "Crew",
+          "description": "The Shrike has up to 11 crew members who can perform various functions in battle and while sailing the ship.",
+          "total": {
+            "max": 11,
+            "current": 11
+          }
+        },
+        {
+          "name": "Cargo",
+          "description": "The Shrike can carry up to 20 tons of cargo.",
+          "total": {
+            "max": 20,
+            "current": 0
+          }
+        }
+      ],
+      "attack": [
+        {
+          "name": "Weapons Ballista - Ballista",
+          "plus_to_hit": 0,
+          "damage": {
+            "aoe": {
+              "shape": "Straight line 120/480 ft",
+              "area": "One target"
+            }, 
+            "effect": {
+              "desc": "The Shrike fires a ranged weapons attack, this attack requires 3 crew to man the ballista and 50 gp to purchase a ballista.",
+              "dc": {
+                "save": 15, 
+                "type": "DEX",
+                "on_save": ["half damage"]
+              }
+            }
+          },
+          "damage_type": "Bludgeoning"
+          
+        },
+        {
+          "name": "Weapons Ballista - Bolt",
+          "plus_to_hit": 6,
+          "damage": {
+            "roll": 3,
+            "dice": 10,
+            "plus": 0,
+            "aoe": {
+              "shape": "Straight line 120/480 ft",
+              "area": "One target"
+            }, 
+            "effect": {
+              "desc": "The Shrike fires a ranged weapons attack, this attack requires 3 crew to man the ballista and 5 gp to purchase a bolt."
+            }
+          },
+          "damage_type": "Piercing"
+        },
+        {
+          "name": "Piercing Ram",
+          "plus_to_hit": 8,
+          "damage": {
+            "roll": 16,
+            "dice": 10,
+            "plus": 0,
+            "aoe": {
+              "shape": "Straight line",
+              "area": "One object or gragantuan creature"
+            }, 
+            "effect": {
+              "desc": "The Shrike's spelljammer can make the following attack when the ship runs into another object or into a Gargantuan creature.",
+              "dc": {
+                "save": 0,
+                "type": "DEX",
+                "on_save": ["no damage", "target moves to nearest unoccupied space not in ships path", "The Shrike may continue moving"]
+              }
+              
+            }
+          },
+          "damage_type": "Piercing"
+        }
+        
+        
+        
+        
+      ]
+        
+      
+    },
+    "notes": []
+    
+    
+  }
+]
