@@ -6,7 +6,7 @@ export const RegularList = ({
   resourceName, 
   itemComponent: ItemComponent
 }) => {
-
+  console.log(items, resourceName)
   return(
     <>
       {items.map((item, index) => (
