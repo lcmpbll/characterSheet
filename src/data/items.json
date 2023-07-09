@@ -1,0 +1,68 @@
+[
+  {
+    "name": "Stalk",
+    "type": "Weapon",
+    "sub_type": "Lance",
+    "description": "A platinum lance with a slight lilt and soft green sheen. This beautiful weapon has wielded long ago by the dragon rider Hyacinth of the Infinite Sky, a central figure in the Lunar war that temporarily united humans and drapons against an Illithid threat.",
+    "attunement": true,
+    
+    "abilities": {
+      "special_abilities": [
+        {
+          "name": "Feather Fall",
+          "description": "Cast feather fall once perday on the bearer, crit on 18-20 while feather fall is active."
+        }
+      ],
+      "attack": [
+        {
+          "name": "Spear",
+          "damage": {
+            "roll": 1,
+            "dice": 8,
+            "plus": 0,
+            "ability": "FIN"
+          },
+          "effect": "Additional 1D8 damage against abberations.",
+          "damage_type": "Piercing"
+        }
+      ]
+    }
+    
+  },
+  {
+    "name": "Frost Bite",
+    "type": "Weapon",
+    "sub_type": "Dagger",
+    "description": "Arcane dagger with a blade made of magical ice which once belonged to the wizard Logan Swale, who helped build the palace of Qurnat as Swada. A vicious cut throat in his yourh he went to great lenghts in his twilight years to 'Build life up instead of cut it down.'",
+    "attunement": true,
+    "abilities": {
+      "special_abilities": [
+        {
+          "name": "Shape Water",
+          "description": "Can be thrown at water to emulate cantrip Shape Water."
+        },
+        {
+          "name": "Return",
+          "description": "Can be thrown and will return to the wielder, cannot be lost or stolen."
+        }
+      ],
+      "attack": [
+        {
+          "name": "Slash/Stab",
+          "damage": {
+            "roll": 1,
+            "dice": 6,
+            "plus": 2,
+            "ability": "FIN",
+            "aoe": {
+              "shape": "Throw 60/120 ft.",
+              "area": "Knife size"
+            }
+          },
+          "damage_type": "cold damage"
+        } 
+      ]
+    }
+    
+  }
+]
