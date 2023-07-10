@@ -4,8 +4,10 @@ import { Box } from "@mui/material";
 import { AiFillHome, AiOutlineHome } from "react-icons/ai";
 import { MdPersonAddAlt, MdPersonAddAlt1 } from "react-icons/md";
 import { FaAddressBook, FaRegAddressBook } from 'react-icons/fa';
-import { GiSwapBag } from 'react-icons/gi';
+import { GiSwapBag, GiFairyWand } from 'react-icons/gi';
 import { CiBag1 } from 'react-icons/ci';
+import { SlMagicWand } from 'react-icons/sl';
+
 
 const Menu = () => {
   const [selected, setSelected] = useState("home");
@@ -47,6 +49,19 @@ const Menu = () => {
         ) : (
           <Link to={"/new"}>
             <MdPersonAddAlt />
+          </Link>
+        )}
+      </Box>
+      <Box
+        onClick={() => {
+          setSelected("spells");
+        }}
+      >
+        {selected === "spells" ? (
+          <SlMagicWand />
+        ) : (
+          <Link to={"/spells"}>
+            <GiFairyWand />
           </Link>
         )}
       </Box>

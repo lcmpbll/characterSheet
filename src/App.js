@@ -2,12 +2,12 @@ import "./styles.css";
 import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import { Box, Typography } from "@mui/material";
-// import { NewCharacterForm } from "./CharacterCreationModule/NewCharacter";
 import { CreateNewCharacterPage } from './CharacterCreation/CreateNewCharacter';
 import Menu from "./Menu";
 import Home from "./Home";
 import { NPC } from "./Components/NPCs";
 import Items from "./Components/Items";
+import Spells from './Components/Spells';
 
 export default function App() {
   const [characterList, setCharacterList] = useState([]);
@@ -51,6 +51,13 @@ export default function App() {
           path="/items"
           element={
             <Items />
+          }
+        />
+          <Route
+          exact
+          path="/spells"
+          element={
+            <Spells />
           }
         />
         <Route exact path="/" element={<Home />} />
