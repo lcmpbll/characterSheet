@@ -1,6 +1,6 @@
 import Loading from './Components/loading';
 import { Box } from '@mui/material';
-import Items from '../src/Components/Items';
+
 const Home = () => {
   
   return (
@@ -13,7 +13,6 @@ const Home = () => {
 
       <Box>
       <Loading/>
-      <Items/>
       </Box>
     </Box>
   );
