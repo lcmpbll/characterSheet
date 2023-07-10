@@ -7,7 +7,7 @@ const LargeDetailItem = ({item}) => {
   if(!item) return <Loading/>
   console.log(item);
   return (
-    <Box sx={{display: 'flex', flexDirection: 'column'}}>
+    <Box sx={{display: 'flex', flexDirection: 'column', padding: '1rem'}}>
       <Box>
         <DetailsHeader name={item.name} type={item.type} sub_type={item.sub_type} desc={item.description} resource={item.type}/>
       </Box>
