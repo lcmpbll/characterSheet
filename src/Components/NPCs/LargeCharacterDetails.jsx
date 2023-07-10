@@ -167,8 +167,6 @@ const calculateAttack = (dice, plus, roll) => {
 }
 const AttackBox = (props) => {
   const {attackAction} = props;
-
-  
   const damageEst = calculateAttack(attackAction.damage.dice, attackAction.damage.plus, attackAction.damage.roll);
   const rollCriteria = attackAction.damage.roll + "  D" +  attackAction.damage.dice + " + " + attackAction.damage.plus; 
   return (
