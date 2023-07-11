@@ -35,6 +35,9 @@
           "name": "Weapons Ballista - Ballista",
           "plus_to_hit": 0,
           "damage": {
+            "roll": 10,
+            "dice": 6,
+            "plus": 0,
             "aoe": {
               "shape": "Straight line 120/480 ft",
               "area": "One target"
