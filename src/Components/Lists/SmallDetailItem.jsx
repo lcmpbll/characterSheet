@@ -19,15 +19,17 @@ const SmallDetailItem = ({Item}) => {
 
 export default SmallDetailItem;
 
-export const SmallClickableDetailItem = ({Item}) => {
+export const SmallClickableDetailItem = ({Item, handleItemClick}) => {
   if(!Item){
     return <Loading/>;
   }
-
-
   const {name, index, url} = Item;
+  const handleClick = () => {
+    handleItemClick(url);
+  }
+ 
   return (
-    <Box sx={{display: 'flex', alignItems: 'flex-end', cursor: 'pointer'}}>
+    <Box onClick={handleClick} sx={{display: 'flex', alignItems: 'flex-end', cursor: 'pointer'}}>
       <p>{name}</p>
     </Box>
   )
