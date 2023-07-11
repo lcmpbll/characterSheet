@@ -1,4 +1,5 @@
-import React from 'react'
+import React from 'react';
+import Loading from '../loading';
 
 
 export const RegularList = ({
@@ -6,7 +7,6 @@ export const RegularList = ({
   resourceName, 
   itemComponent: ItemComponent
 }) => {
-  console.log(items, resourceName)
   return(
     <>
       {items.map((item, index) => (
@@ -14,6 +14,23 @@ export const RegularList = ({
       ))}
     </>
   );
+}
+
+export const ApiList = ({
+  data,
+  resourceName,
+  itemComponent: ItemComponent
+}) => {
+  const {
+  results,
+  } = data || {};
+  return data ? (
+    <>
+      {results.map((item, index) => (
+        <ItemComponent key={index} {...{[resourceName]: item}} />
+      ))}
+    </>
+  ) : <Loading/> ;
 }
 
 export const NumberedList = ({
