@@ -19,7 +19,8 @@ export const RegularList = ({
 export const ApiList = ({
   data,
   resourceName,
-  itemComponent: ItemComponent
+  itemComponent: ItemComponent,
+  handleItemClick
 }) => {
   const {
   results,
@@ -27,7 +28,7 @@ export const ApiList = ({
   return data ? (
     <>
       {results.map((item, index) => (
-        <ItemComponent key={index} {...{[resourceName]: item}} />
+        <ItemComponent key={index} {...{[resourceName]: item}} handleItemClick={handleItemClick} />
       ))}
     </>
   ) : <Loading/> ;
