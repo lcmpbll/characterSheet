@@ -25,7 +25,10 @@ export const SmallClickableDetailItem = ({Item, handleItemClick}) => {
   }
   const {name, index, url} = Item;
   const handleClick = () => {
-    handleItemClick(url);
+    if(handleItemClick){
+      
+      handleItemClick(url);
+    }
   }
  
   return (
