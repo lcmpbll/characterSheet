@@ -1,4 +1,4 @@
-import React, { useMemo, memo, useState, useEffect, createContext, useContext } from 'react';
+import React, { useMemo, memo, useState, useEffect} from 'react';
 import { Box } from '@mui/material';
 import { SmallClickableDetailItem } from '../Lists/SmallDetailItem';
 import { withData } from '../../HOC/withFormData';
@@ -9,7 +9,7 @@ import { GiJuggler } from 'react-icons/gi';
 import { MdOutlineCheckCircleOutline } from 'react-icons/md';
 import { RiNotificationOffLine } from 'react-icons/ri';
 
-export const SpellContext = createContext();
+
 const Spells = () => {
   const [url, setUrl] = useState('/api/spells');
   const [detaillUrl, setDetailUrl] = useState('');
@@ -24,7 +24,7 @@ const Spells = () => {
       <SpellListWithData resourceName={'Item'} itemComponent={SmallClickableDetailItem}  handleItemClick={handleItemClick}   />
 
     ),
-    []
+    [url]
   )
   return (
     
@@ -66,12 +66,11 @@ const SpellDetails = ({data}) => {
       <Box sx={{display: 'flex', justifyContent: 'flex-start', alignItems: 'baseline'}}>
         <Box sx={{display: 'flex', alignItems: 'flex-start', justifyContent: 'baseline', flexDirection: 'column'}}>
           <h1>{name}</h1>
-          <p></p>
         </Box>
-        <Box sx={{display: 'flex', alignItems: 'flex-start', justifyContent: 'baseline', flexDirection: 'column'}}>
+        <Box sx={{display: 'flex', alignItems: 'flex-start', justifyContent: 'baseline', flexDirection: 'column', height: '150px', flexWrap: 'wrap'}}>
           {classes.map((spellClass, index) => {
             return (
-              <p key={index}>{spellClass.name}</p>
+              <p key={index}>{spellClass.name} &nbsp;</p> 
             )
           })}
         </Box>
@@ -114,3 +113,5 @@ const SpellDetails = ({data}) => {
   ) : <h1> Select a Spell</h1>;
   
 }
+
+
