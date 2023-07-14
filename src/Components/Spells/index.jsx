@@ -1,4 +1,5 @@
 import React, { useMemo, memo, useState, useEffect} from 'react';
+import Loading from '../loading';
 import { Box } from '@mui/material';
 import { SmallClickableDetailItem } from '../Lists/SmallDetailItem';
 import { withData } from '../../HOC/withFormData';
@@ -10,14 +11,47 @@ import { MdOutlineCheckCircleOutline } from 'react-icons/md';
 import { RiNotificationOffLine } from 'react-icons/ri';
 
 
+const Modal = ({children , shouldShow, handleCloseClick}) => {
+  
+  return (
+    <>
+    {shouldShow && (
+      <Box sx={{border: '2px solid black', position: 'fixed', zIndex: '1', left: 0, top: 0, width: '100%', height: '100%', overflow: 'auto', backgroundColor: 'rgba(0,0,0, 0.5)'}}
+        onClick={() => handleCloseClick()}>
+        <Box  onClick={e => e.stopPropagation()}>
+          {children}
+        </Box>
+      </Box>
+    )}
+    </>
+  );
+}
+
+const SmallInfoItem = ({data}) => {
+  return data ? (
+    <>
+    
+    </>
+  ): <Loading/> ;
+}
+
 const Spells = () => {
+  const [shouldShow, setShouldShow] = useState(false);
+  const [moreInfoUrl, setMoreInfoUrl] = useState(''); 
   const [url, setUrl] = useState('/api/spells');
   const [detaillUrl, setDetailUrl] = useState('');
   const SpellDetailsWithData = useMemo(() => withData(SpellDetails, detaillUrl));
   const SpellListWithData = useMemo(() => withData(ApiList, url));
   const handleItemClick = (url) => {
     setDetailUrl(url);
-  }
+  };
+  const handleDetailClick = (moreInfoUrl, shouldShow) => {
+    setMoreInfoUrl(moreInfoUrl);
+    setShouldShow(shouldShow);
+  }; 
+  const handleCloseClick = (shouldShow) => {
+    setShouldShow(false);
+  };
   const MemorizedSpellList = useMemo(
     () => memo(() => 
 
@@ -27,14 +61,19 @@ const Spells = () => {
     [url]
   )
   return (
-    
-    <SplitScreen
-    leftWeight={1}
-    rightWeight={4}
-    >
-      <MemorizedSpellList />
-      <SpellDetailsWithData/>
-    </SplitScreen>
+    <>
+      <SplitScreen
+      leftWeight={1}
+      rightWeight={4}
+      >
+        <button onClick={() => handleDetailClick('dada', true)}>Click here</button>
+        <MemorizedSpellList />
+        <SpellDetailsWithData/>
+      </SplitScreen>
+      <Modal shouldShow={shouldShow} handleCloseClick={handleCloseClick}>
+        <SmallInfoItem />
+      </Modal>
+    </>
   )
 }
 
