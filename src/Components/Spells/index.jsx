@@ -77,6 +77,8 @@ const SpellDetails = ({data}) => {
         <Box sx={{display: 'flex', width: '100%', alignItems: 'flex-end', flexDirection: 'column'}}>
           <p>School: {school.name}</p>
           <p>Level: {level}</p>
+          
+          <p>{damage?.damage_at_character_level ? 'Damage at charater level 1: ' + damage?.damage_at_character_level[1] : 'Damage at slot level '+ level + ': ' + damage?.damage_at_slot_level[level]}</p>
         </Box>
       </Box>
       <Box sx={{}}>
