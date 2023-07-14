@@ -28,6 +28,7 @@ const Modal = ({children , shouldShow, handleCloseClick}) => {
 }
 
 const SmallInfoItem = ({data}) => {
+  console.log(data);
   return data ? (
     <>
     
@@ -37,28 +38,35 @@ const SmallInfoItem = ({data}) => {
 
 const Spells = () => {
   const [shouldShow, setShouldShow] = useState(false);
-  const [moreInfoUrl, setMoreInfoUrl] = useState(''); 
+  const [moreInfoUrl, setMoreInfoUrl] = useState("/api/subclasses/lore"); 
   const [url, setUrl] = useState('/api/spells');
-  const [detaillUrl, setDetailUrl] = useState('');
-  const SpellDetailsWithData = useMemo(() => withData(SpellDetails, detaillUrl));
+  const [detailUrl, setDetailUrl] = useState('');
+  const SmallInfoItemWithData = useMemo(() => withData(SmallInfoItem, moreInfoUrl));
+  const SpellDetailsWithData = useMemo(() => withData(SpellDetails, detailUrl));
+
   const SpellListWithData = useMemo(() => withData(ApiList, url));
   const handleItemClick = (url) => {
     setDetailUrl(url);
-  };
-  const handleDetailClick = (moreInfoUrl, shouldShow) => {
-    setMoreInfoUrl(moreInfoUrl);
-    setShouldShow(shouldShow);
+  }
+  const handleDetailClick = (newMoreInfoUrl) => {
+    // setMoreInfoUrl(newMoreInfoUrl);
+    console.log(moreInfoUrl);
+    setShouldShow(true);
   }; 
-  const handleCloseClick = (shouldShow) => {
+  const handleCloseClick = () => {
     setShouldShow(false);
   };
   const MemorizedSpellList = useMemo(
     () => memo(() => 
 
-      <SpellListWithData resourceName={'Item'} itemComponent={SmallClickableDetailItem}  handleItemClick={handleItemClick}   />
+      <SpellListWithData resourceName={'Item'} itemComponent={SmallClickableDetailItem}  handleItemClick={handleItemClick}  />
 
     ),
     [url]
+  )
+  
+  const MemorizedSpellDetails = useMemo(
+    () => memo(() => <SpellDetailsWithData handleDetailClick={handleDetailClick} />), [detailUrl]
   )
   return (
     <>
@@ -66,12 +74,12 @@ const Spells = () => {
       leftWeight={1}
       rightWeight={4}
       >
-        <button onClick={() => handleDetailClick('dada', true)}>Click here</button>
+        {/* <button onClick={() => handleDetailClick('dada', true)}>Click here</button> */}
         <MemorizedSpellList />
-        <SpellDetailsWithData/>
+        <MemorizedSpellDetails />
       </SplitScreen>
       <Modal shouldShow={shouldShow} handleCloseClick={handleCloseClick}>
-        <SmallInfoItem />
+        <SmallInfoItemWithData />
       </Modal>
     </>
   )
@@ -79,7 +87,7 @@ const Spells = () => {
 
 export default Spells;
 
-const SpellDetails = ({data}) => {
+const SpellDetails = ({data, handleDetailClick}) => {
   const {
     name,
     casting_time,
@@ -99,7 +107,10 @@ const SpellDetails = ({data}) => {
     desc
   } = data || {};
   console.log(data);
-  
+  const handleRequestForMoreInfo = ({endPoint}) => {
+    handleDetailClick(endPoint);
+    
+  }
   return data ? (
     <Box sx={{height: '100%', width: '100%', display: 'flex', justifyContent: 'flex-start', flexDirection: 'column', margin: '1rem'}}>
       <Box sx={{display: 'flex', justifyContent: 'flex-start', alignItems: 'baseline'}}>
@@ -109,7 +120,7 @@ const SpellDetails = ({data}) => {
         <Box sx={{display: 'flex', alignItems: 'flex-start', justifyContent: 'baseline', flexDirection: 'column', height: '150px', flexWrap: 'wrap'}}>
           {classes.map((spellClass, index) => {
             return (
-              <p key={index}>{spellClass.name} &nbsp;</p> 
+              <p onClick={() => handleRequestForMoreInfo(spellClass.url)} key={index}>{spellClass.name} &nbsp;</p> 
             )
           })}
         </Box>
