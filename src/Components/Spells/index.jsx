@@ -4,7 +4,7 @@ import { Box } from '@mui/material';
 import { SmallClickableDetailItem } from '../Lists/SmallDetailItem';
 import { withData } from '../../HOC/withFormData';
 import { SplitScreen } from '../Divisions/SplitScreen';
-import { ApiList } from '../Lists';
+import { ApiList, RegularList } from '../Lists';
 import { FaHeadSideVirus } from 'react-icons/fa';
 import { GiJuggler } from 'react-icons/gi';
 import { MdOutlineCheckCircleOutline } from 'react-icons/md';
@@ -41,6 +41,11 @@ const Spells = () => {
   const [moreInfoUrl, setMoreInfoUrl] = useState("/api/subclasses/lore"); 
   const [url, setUrl] = useState('/api/spells');
   const [detailUrl, setDetailUrl] = useState('');
+  const handleDetailClick = (newMoreInfoUrl) => {
+    setMoreInfoUrl(newMoreInfoUrl);
+   
+    setShouldShow(true);
+  }; 
   const SmallInfoItemWithData = useMemo(() => withData(SmallInfoItem, moreInfoUrl));
   const SpellDetailsWithData = useMemo(() => withData(SpellDetails, detailUrl));
 
@@ -48,11 +53,6 @@ const Spells = () => {
   const handleItemClick = (url) => {
     setDetailUrl(url);
   }
-  const handleDetailClick = (newMoreInfoUrl) => {
-    // setMoreInfoUrl(newMoreInfoUrl);
-    console.log(moreInfoUrl);
-    setShouldShow(true);
-  }; 
   const handleCloseClick = () => {
     setShouldShow(false);
   };
@@ -106,7 +106,8 @@ const SpellDetails = ({data, handleDetailClick}) => {
     desc
   } = data || {};
   console.log(data);
-  const handleRequestForMoreInfo = ({endPoint}) => {
+  const handleRequestForMoreInfo = (endPoint) => {
+    
     handleDetailClick(endPoint);
     
   }
@@ -117,11 +118,13 @@ const SpellDetails = ({data, handleDetailClick}) => {
           <h1>{name}</h1>
         </Box>
         <Box sx={{display: 'flex', alignItems: 'flex-start', justifyContent: 'baseline', flexDirection: 'column', height: '150px', flexWrap: 'wrap'}}>
-          {classes.map((spellClass, index) => {
+          {/* {classes.map((spellClass, index) => {
             return (
-              <p onClick={() => handleRequestForMoreInfo(spellClass.url)} key={index}>{spellClass.name} &nbsp;</p> 
+              //<p onClick={() => handleRequestForMoreInfo(spellClass.url)} key={index}>{spellClass.name} &nbsp;</p> 
+              
             )
-          })}
+          })} */}
+          <RegularList items={classes} resourceName={'Item'} itemComponent={SmallClickableDetailItem} handleItemClick={handleRequestForMoreInfo} />
         </Box>
         <Box sx={{display: 'flex', width: '100%', alignItems: 'flex-end', flexDirection: 'column'}}>
           <p>School: {school.name}</p>
