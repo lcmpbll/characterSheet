@@ -74,7 +74,6 @@ const Spells = () => {
       leftWeight={1}
       rightWeight={4}
       >
-        {/* <button onClick={() => handleDetailClick('dada', true)}>Click here</button> */}
         <MemorizedSpellList />
         <MemorizedSpellDetails />
       </SplitScreen>
@@ -127,8 +126,9 @@ const SpellDetails = ({data, handleDetailClick}) => {
         <Box sx={{display: 'flex', width: '100%', alignItems: 'flex-end', flexDirection: 'column'}}>
           <p>School: {school.name}</p>
           <p>Level: {level}</p>
-          
+          {damage ? (
           <p>{damage?.damage_at_character_level ? 'Damage at charater level 1: ' + damage?.damage_at_character_level[1] : 'Damage at slot level '+ level + ': ' + damage?.damage_at_slot_level[level]}</p>
+          ): null}
         </Box>
       </Box>
       <Box sx={{}}>
