@@ -9,7 +9,8 @@
     "vunerability": ["Fire"],
     "resistance": ["Piercing", "Bludgeoning", "Slashing"],
     "immunities": ["Charm", "Sleep", "Paralysis", "Poison", "Blind", "Frighten"],
-    "advantage": "Saving throws against spells",
+    "advantage": ["Saving throws against spells"],
+    "inventry": [],
     "speed": 60,
     "proficiencies": {
       
@@ -103,7 +104,8 @@
     "vunerability": [],
     "resistance": ["Bludgeoning", "Piercing", "Slashing (Non Magical)", "Lightning", "Thunder"],
     "immunities": [ "Poison", "Exhaustion", "Grapple", "Paralysis", "Petrification", "Prone", "Restriant", "Unconsciousiness"],
-    "advantage": null,
+    "advantage": [],
+    "inventry": [],
     "speed": 90,
     "proficiencies": 
       {
@@ -176,7 +178,7 @@
           "plus_to_hit": 0,
           "damage": {
             "aoe": {
-              "shape": " Each creature in the elemental's space",
+              "shape": "Each creature in the elemental's space",
               "area": "?"
             },
             "effect": {
@@ -209,7 +211,8 @@
     "vunerability": [],
     "resistance": ["Bludgeoning", "Piercing", "Slashing (Non Magical)", "Lightning", "Thunder"],
     "immunities": [ "Poison", "Charm", "Exhaustion"],
-    "advantage": null,
+    "advantage": [],
+    "inventry": [],
     "speed": 40,
     "saving_throws" : {
       "DEX": 1,
@@ -266,7 +269,7 @@
         },
         {
           "name": "Repair",
-          "description": "he magical mechanisms inside the defender restore 2d8 + 3 (PB) hit points to itself or to one construct or object within 5 feet of it.",
+          "description": "The magical mechanisms inside the defender restore 2d8 + 3 (PB) hit points to itself or to one construct or object within 5 feet of it.",
           "recharge": "3/Day"
         }
       ],
