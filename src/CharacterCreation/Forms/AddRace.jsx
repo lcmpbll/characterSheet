@@ -1,8 +1,13 @@
-import React, {useState, useContext, useEffect } from 'react';
+import React, {useState, useContext, useEffect, useMemo } from 'react';
 import Loading from '../../Components/loading';
 import { Box, Typography, TextField, Grid } from "@mui/material";
 import InputField from '../../FormFields/InputField';
 import { FormContext } from '../CreateNewCharacter';
+import { Modal, SmallInfoItem } from '../../Components/Spells';
+import { SmallClickableDetailItem } from '../../Components/Lists/SmallDetailItem';
+import SmallDetailItem from '../../Components/Lists/SmallDetailItem';
+import { RegularList } from '../../Components/Lists';
+import { withData } from '../../HOC/withFormData';
 
  // Add ability choice options
  // Add proficiencies
@@ -83,10 +88,19 @@ export const AddRaceDetails = ({formField, data }) => {
     url
     } = data || {};
   // console.log(data, 'stuff');
-  
+  const [shouldShow, setShouldShow] = useState(false);
+  const [moreInfoUrl, setMoreInfoUrl] = useState("/api/subclasses/lore"); 
   const [isLoading, setIsLoading] = useState(true);
+  const SmallInfoItemWithData = useMemo(() => withData(SmallInfoItem, moreInfoUrl));
   const {currentCharacter, setCurrentCharacter} = useContext(FormContext);
-  
+  const handleItemClick = (newMoreInfoUrl) => {
+    setMoreInfoUrl(newMoreInfoUrl);
+   
+    setShouldShow(true);
+  }; 
+  const handleCloseClick = () => {
+    setShouldShow(false);
+  };
   let characterAbilityBonuses = null;
   let characterBonusAmounts = null;
   let abilityBonuses = null;
@@ -112,78 +126,80 @@ export const AddRaceDetails = ({formField, data }) => {
   // const averageRaceAge = getAvgAge(raceDetails.age);
   
   return data? (
-    <Box>
+    <>
       <Box>
+        <Box>
 
-        <InputField name={character_speed.name} label={character_speed.label} fullWidth/>
-        <InputField name={character_size.name} label={character_size.label} fullWidth/> 
-        <InputField name={character_age.name} label={character_age.label} fullWidth/> 
-        <InputField name={character_abilityBonuses.name} label={character_abilityBonuses.label} fullWidth />
-      </Box>
-      {/* {isLoading === false ?   */}
-      <Box display="grid" justifyContent="start" m='20px'>
-        <Typography>Common Stats: {name}</Typography>
-        <Box p='8px'>
-          <Box sx={{
-            display: 'grid',
-            gridTemplateRows: '1fr 1fr 1fr 1fr',
-            justifyContent: 'space-around'
-          }}>
+          <InputField name={character_speed.name} label={character_speed.label} fullWidth/>
+          <InputField name={character_size.name} label={character_size.label} fullWidth/> 
+          <InputField name={character_age.name} label={character_age.label} fullWidth/> 
+          <InputField name={character_abilityBonuses.name} label={character_abilityBonuses.label} fullWidth />
+        </Box>
+        {/* {isLoading === false ?   */}
+        <Box display="grid" justifyContent="start" m='20px'>
+          <Typography>Common Stats: {name}</Typography>
+          <Box p='8px'>
             <Box sx={{
               display: 'grid',
-              gridTemplateColumns: '1fr 1fr 2fr 2fr',
-              margin: '8px'
-            }}> 
-              <Box>
-                <Typography m='3px'>Speed: {speed} feet</Typography>
-                <Typography m='3px'>Size: {size}</Typography> 
-              </Box>
-              <Box>
-                <Typography>Languages:</Typography>
-                {languages.map((lang, index) => (
-                  <Typography key={index}>
-                    {lang.name}
-                  </Typography>
-                ))}
-              </Box>
-              <Box>
-                <Typography>Traits: </Typography>
-                {traits.map((trait, index) => (
-                  <Typography key={index}>
-                    {trait.name}
-                  </Typography>
-                ))}
-              </Box>
-              <Box>
-                <AbilitiesComponent props={ability_bonuses}/>
-              </Box>
-            </Box>
-            <Box sx={{
-              display: 'grid',
+              gridTemplateRows: '1fr 1fr 1fr 1fr',
+              justifyContent: 'space-around'
             }}>
-              
-              <Typography>Age: {age}</Typography>
-            </Box>
-            <Box sx={{
-              display: 'grid',
-            }}>
-              <Typography>{size_description}</Typography>
-            </Box>
-            <Box sx={{
-              display: 'grid',
-            }}>
-              
-              <Typography>{language_desc}</Typography>
+              <Box sx={{
+                display: 'grid',
+                gridTemplateColumns: '1fr 1fr 2fr 2fr',
+                margin: '8px'
+              }}> 
+                <Box>
+                  <Typography m='3px'>Speed: {speed} feet</Typography>
+                  <Typography m='3px'>Size: {size}</Typography> 
+                </Box>
+                <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+                  <Typography>Languages:</Typography>
+                  <RegularList items={languages} resourceName={"Item"} itemComponent={SmallDetailItem
+                  }  />
+                </Box>
+                <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center'}}>
+                  <Typography>Traits: </Typography>
+                  <RegularList items={traits} resourceName={"Item"} itemComponent={SmallClickableDetailItem
+                  } handleItemClick={handleItemClick} />
+                </Box>
+                <Box>
+                  <AbilitiesComponent props={ability_bonuses}/>
+                </Box>
+              </Box>
+              <Box sx={{
+                display: 'grid',
+              }}>
+                
+                <Typography>Age: {age}</Typography>
+              </Box>
+              <Box sx={{
+                display: 'grid',
+              }}>
+                <Typography>{size_description}</Typography>
+              </Box>
+              <Box sx={{
+                display: 'grid',
+              }}>
+                
+                <Typography>{language_desc}</Typography>
+              </Box>
             </Box>
           </Box>
         </Box>
+      {/* : <Loading/> }   */}
+        <Box>
+          <Typography></Typography>
+        </Box> 
+      
       </Box>
-     {/* : <Loading/> }   */}
-      <Box>
-        <Typography></Typography>
-      </Box> 
+      <Box sx={{display: 'flex', justifyContent: 'center'}}>
+        <Modal shouldShow={shouldShow} handleCloseClick={handleCloseClick}>
+          <SmallInfoItemWithData />
+        </Modal>
+      </Box>
+     </>
      
-     </Box>
   ): null;
 };
 
