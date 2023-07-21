@@ -168,19 +168,13 @@ export const AddRaceDetails = ({formField, data }) => {
                 </Box>
               </Box>
               <Box sx={{
-                display: 'grid',
+                display: 'flex', flexDirection: 'column', justifyContent: 'space-evenly', alignItems: 'flex-start'
               }}>
                 
                 <Typography>Age: {age}</Typography>
-              </Box>
-              <Box sx={{
-                display: 'grid',
-              }}>
+           
                 <Typography>{size_description}</Typography>
-              </Box>
-              <Box sx={{
-                display: 'grid',
-              }}>
+           
                 
                 <Typography>{language_desc}</Typography>
               </Box>
