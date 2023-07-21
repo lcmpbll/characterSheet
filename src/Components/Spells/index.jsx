@@ -20,7 +20,7 @@ export const Modal = ({children , shouldShow, handleCloseClick}) => {
     {shouldShow && (
       <Box sx={{border: '2px solid black', position: 'fixed', zIndex: '1', left: 0, top: 0, width: '100%', height: '100%', overflow: 'auto', backgroundColor: 'rgba(0,0,0, 0.5)'}}
         onClick={() => handleCloseClick()}>
-        <Box  onClick={e => e.stopPropagation()}>
+        <Box  sx={{padding: '1rem', margin: 'auto'}} onClick={e => e.stopPropagation()}>
           {children}
         </Box>
       </Box>
