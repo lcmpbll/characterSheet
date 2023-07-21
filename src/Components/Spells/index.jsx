@@ -28,10 +28,15 @@ const Modal = ({children , shouldShow, handleCloseClick}) => {
 }
 
 const SmallInfoItem = ({data}) => {
-  console.log(data);
+  const {
+    name,
+    
+  } = data || {};
   return data ? (
     <>
-    
+      <Box sx={{backgroundColor: 'white'}}>
+        <h1>{name}</h1>
+      </Box>
     </>
   ): <Loading/> ;
 }
@@ -114,17 +119,18 @@ const SpellDetails = ({data, handleDetailClick}) => {
   return data ? (
     <Box sx={{height: '100%', width: '100%', display: 'flex', justifyContent: 'flex-start', flexDirection: 'column', margin: '1rem'}}>
       <Box sx={{display: 'flex', justifyContent: 'flex-start', alignItems: 'baseline'}}>
-        <Box sx={{display: 'flex', alignItems: 'flex-start', justifyContent: 'baseline', flexDirection: 'column'}}>
+        <Box sx={{display: 'flex', alignItems: 'flex-start', justifyContent: 'baseline', flexDirection: 'column', marginRight: '1rem'}}>
           <h1>{name}</h1>
         </Box>
         <Box sx={{display: 'flex', alignItems: 'flex-start', justifyContent: 'baseline', flexDirection: 'column', height: '150px', flexWrap: 'wrap'}}>
-          {/* {classes.map((spellClass, index) => {
-            return (
-              //<p onClick={() => handleRequestForMoreInfo(spellClass.url)} key={index}>{spellClass.name} &nbsp;</p> 
-              
-            )
-          })} */}
+          <Box>
           <RegularList items={classes} resourceName={'Item'} itemComponent={SmallClickableDetailItem} handleItemClick={handleRequestForMoreInfo} />
+          </Box>
+          {subclasses ? (
+            <Box>
+              <RegularList items={subclasses} resourceName={'Item'} itemComponent={SmallClickableDetailItem} handleItemClick={handleRequestForMoreInfo} />
+            </Box>
+              ) : null}
         </Box>
         <Box sx={{display: 'flex', width: '100%', alignItems: 'flex-end', flexDirection: 'column'}}>
           <p>School: {school.name}</p>
