@@ -89,7 +89,7 @@ export const AddRaceDetails = ({formField, data }) => {
     } = data || {};
   // console.log(data, 'stuff');
   const [shouldShow, setShouldShow] = useState(false);
-  const [moreInfoUrl, setMoreInfoUrl] = useState("/api/subclasses/lore"); 
+  const [moreInfoUrl, setMoreInfoUrl] = useState(""); 
   const [isLoading, setIsLoading] = useState(true);
   const SmallInfoItemWithData = useMemo(() => withData(SmallInfoItem, moreInfoUrl));
   const {currentCharacter, setCurrentCharacter} = useContext(FormContext);
@@ -133,7 +133,7 @@ export const AddRaceDetails = ({formField, data }) => {
           <InputField name={character_speed.name} label={character_speed.label} fullWidth/>
           <InputField name={character_size.name} label={character_size.label} fullWidth/> 
           <InputField name={character_age.name} label={character_age.label} fullWidth/> 
-          <InputField name={character_abilityBonuses.name} label={character_abilityBonuses.label} fullWidth />
+          {/* <InputField name={character_abilityBonuses.name} label={character_abilityBonuses.label} fullWidth /> */}
         </Box>
         {/* {isLoading === false ?   */}
         <Box display="grid" justifyContent="start" m='20px'>
