@@ -166,10 +166,12 @@ const AddClassDetails = ({formField, data}) => {
           </Box>
         </Box>
       </Box>
+      {spellcasting ? (
         <Box>
           <p>Spellcasting</p>
           <SpellInfo spellInfo={spellcasting}/>
-        </Box>
+        </Box> 
+      ) :  null}
     </Box>
     
   ) : 
@@ -186,10 +188,10 @@ const SpellInfo = (props) => {
  
   return ( 
     <Box>
-      <p>Level: {spellInfo.level} Magical Deets</p>
-      <p>Spell casting Skill: {spellInfo.spellcasting_ability.name}</p>
+      <p>Level: {spellInfo?.level} Magical Deets</p>
+      <p>Spell casting Skill: {spellInfo?.spellcasting_ability.name}</p>
       <Box>
-        {spellInfo.info.map((skill) => (
+        {spellInfo?.info.map((skill) => (
           <Box sx={{display: 'flex', flexDirection: 'column', justifyContent: 'flex-start'}}>
             <p>{skill.name} :</p>
             {skill.desc.map((desc) => (
