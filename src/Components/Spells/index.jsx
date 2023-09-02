@@ -2,6 +2,7 @@ import React, { useMemo, memo, useState, useEffect} from 'react';
 import Loading from '../loading';
 import { Box } from '@mui/material';
 import { SmallClickableDetailItem } from '../Lists/SmallDetailItem';
+import SmallClickableDetail from '../Lists/SmallDetailItem';
 import { withData } from '../../HOC/withFormData';
 import { SplitScreen } from '../Divisions/SplitScreen';
 import { ApiList, RegularList } from '../Lists';
@@ -9,16 +10,17 @@ import { FaHeadSideVirus } from 'react-icons/fa';
 import { GiJuggler } from 'react-icons/gi';
 import { MdOutlineCheckCircleOutline } from 'react-icons/md';
 import { RiNotificationOffLine } from 'react-icons/ri';
+import SmallDetailItem from '../Lists/SmallDetailItem';
 
 
-const Modal = ({children , shouldShow, handleCloseClick}) => {
+export const Modal = ({children , shouldShow, handleCloseClick}) => {
   
   return (
     <>
     {shouldShow && (
       <Box sx={{border: '2px solid black', position: 'fixed', zIndex: '1', left: 0, top: 0, width: '100%', height: '100%', overflow: 'auto', backgroundColor: 'rgba(0,0,0, 0.5)'}}
         onClick={() => handleCloseClick()}>
-        <Box  onClick={e => e.stopPropagation()}>
+        <Box  sx={{padding: '1rem', margin: 'auto'}} onClick={e => e.stopPropagation()}>
           {children}
         </Box>
       </Box>
@@ -27,15 +29,21 @@ const Modal = ({children , shouldShow, handleCloseClick}) => {
   );
 }
 
-const SmallInfoItem = ({data}) => {
+export const SmallInfoItem = ({data}) => {
+  console.log(data);
   const {
     name,
+    desc
     
   } = data || {};
   return data ? (
     <>
       <Box sx={{backgroundColor: 'white'}}>
-        <h1>{name}</h1>
+        <Box><h1>{name}</h1></Box>
+        <Box>
+          {desc ? (<RegularList items={desc} resourceName={'Item'} itemComponent={SmallDetailItem} />  ) : null
+          }
+        </Box>
       </Box>
     </>
   ): <Loading/> ;

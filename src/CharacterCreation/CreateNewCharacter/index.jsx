@@ -159,19 +159,25 @@ export const CreateNewCharacterPage  = (props) =>  {
             >
               {() => (
                 <Form id={formId}>
-                  {_renderStepContent(activeStep, data)}
-                  <Box display={'flex'} flexDirection={'row'} justifyContent={'space-between'} m={'8px'}>
-                    {activeStep !== 0 && (
-                      <Button onClick={_handleBack}>Back</Button>
-                    )}
-                    <Box>
-                      <Button
-                        // disabled={isSubmitting}
-                        type='submit'
-                        variant='contained'
-                        color='primary'
-                      >{isLastStep ? 'Create Character' : 'Next' }</Button>
+                  <Box display={'flex'} flexDirection={'column'}  m={'8px'}>
+                    <Box sx={{display: 'flex'}}>
+                      <Box sx={{justifySelf: 'flex-start', padding: '1rem', width: '50%'}}>
+                        {activeStep !== 0 && (
+                          <Button   onClick={_handleBack}>Back</Button>
+                        )}
+                      </Box>
+                      <Box sx={{justifySelf: 'flex-end', padding: '1rem', width: '50%'}}>
+                        <Button
+                          // disabled={isSubmitting}
+                          type='submit'
+                          variant='contained'
+                          color='primary'
+                        >{isLastStep ? 'Create Character' : 'Next' }</Button>
+                      </Box>
                     </Box>
+                    
+                  
+                  {_renderStepContent(activeStep, data)}
                   </Box>
                 </Form>
               )}

@@ -16,7 +16,7 @@ const Menu = () => {
       <Box onClick={() => {setSelected("npc")}}>
         {selected === 'npc' ? <FaAddressBook/> : <Link to={"npc"}> <FaRegAddressBook/> </Link>}
       </Box>
-      <Box onClikc ={() => {setSelected("items")}}>
+      <Box onClick={() => {setSelected("items")}}>
         {selected === "items"? (
           <GiSwapBag/>
         ) :

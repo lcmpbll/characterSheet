@@ -11,7 +11,7 @@ export const LargeCharacterDetails = ({npc}) => {
     return <Loading/>
   }
   return (
-    <Box sx={{display: 'flex', flexDirection: 'column', flex: 6, border: '3px solid black', padding: '1rem', maxWidth: '800px', maxHeight: '1150px'}}>
+    <Box sx={{display: 'flex', flexDirection: 'column', flex: 6, border: '3px solid black', padding: '1rem', maxWidth: '800px', maxHeight: 'content'}}>
       <Box sx={{flex: 2}}>
         <DetailsHeader name={npc.name} type={npc.type} sub_type={npc.sub_type} desc={npc.desc} resource={"Character"}/>
       </Box>
@@ -170,26 +170,26 @@ const AttackBox = (props) => {
   const damageEst = calculateAttack(attackAction.damage.dice, attackAction.damage.plus, attackAction.damage.roll);
   const rollCriteria = attackAction.damage.roll + "  D" +  attackAction.damage.dice + " + " + attackAction.damage.plus; 
   return (
-    <Box sx={{display: 'flex', flexDirection: 'column'}}>
+    <Box sx={{display: 'flex', flexDirection: 'column', border: '2px solid black', padding: '3px'}}>
       <Box sx={{display: 'flex', justifyContent: 'space-between', alignItems: 'center'}}>
         <h3>{attackAction.name} - {attackAction.damage_type}</h3>
         <p>Est Damage: {damageEst}</p>
       </Box>
       <Box sx={{display: 'flex', justifyContent: 'space-around', alignItems: 'center'}}>
         <Box>
-        <h3>Plus to hit: </h3>
-        <h4>{attackAction.plus_to_hit}</h4> 
+        <h4>Plus to hit: </h4>
+        <h5>{attackAction.plus_to_hit}</h5> 
         
         </Box>
         <Box>
-          <h3>Roll:</h3>
-          <h4>{rollCriteria}</h4>
+          <h4>Roll:</h4>
+          <h5>{rollCriteria}</h5>
         </Box>
       </Box>
       <Box>
         {attackAction.damage?.effect ?
         <Box  sx={{ display: 'flex', flexWrap: 'wrap'}}>
-            <h3>Effect: </h3> &nbsp;
+            <h4>Effect: </h4> &nbsp;
           <Box sx={{display: 'flex', alignItems: 'center' }}> 
             <Box sx={{display: 'flex', justifyContent: 'flex-start', flexDirection: 'column'}}>
               <Box sx={{display: 'flex'}}>

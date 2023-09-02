@@ -7,12 +7,14 @@ const SmallDetailItem = ({Item}) => {
     return <Loading/>
   };
 
-  const {name, sub_type} = Item;
-  
-  
+    const {name, sub_type, desc} = Item;
+    
+
+  console.log(Item, 'small detail')
+
   return (
     <Box sx={{display: 'flex', alignItems: 'flex-start'}}>
-      <p>{name} {sub_type ? "-" + sub_type : null}</p>
+      <p>{name? name: Item} {sub_type ? "-" + sub_type : null}</p>
     </Box>
   )
 }
